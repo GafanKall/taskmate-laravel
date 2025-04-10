@@ -1,0 +1,91 @@
+:root{
+    --transition: all 0.5s ease;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px ;
+}
+
+nav img{
+    width: 120px;
+    height: 80px;
+}
+
+nav button {
+    width: 140px;
+    height: 50px;
+    border-radius: 10px;
+    border: 3px #39A5ED solid;
+    color: #39A5ED;
+    background-color: transparent;
+    font-size: 1rem;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3  );
+}
+
+nav .sign-up{
+    background-color: #39A5ED;
+    color: white;
+}
+
+nav .sign-up:hover{
+    background-color: white;
+    color: #39A5ED;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+nav .sign-in:hover{
+    background-color: #39A5ED;
+    color: white;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.section{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 100px 0 100px ;
+}
+
+.description{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.section button {
+    width: 170px;
+    height: 60px;
+    border-radius: 10px;
+    border: 3px #39A5ED solid;
+    color: #39A5ED;
+    background-color: transparent;
+    font-size: 1.2rem;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.section button:hover{
+    background-color: #39A5ED;
+    color: white;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.section h1 {
+    font-size: 3.5rem;
+}
+
+.section p {
+    font-size: 1.5rem;
+}
