@@ -21,6 +21,10 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelector('.nav-list li a .bx-checkbox-checked').parentElement.classList.add('active');
         } else if (currentPath.includes('/work')) {
             document.querySelector('.nav-list li a .bx-briefcase-alt').parentElement.classList.add('active');
+        } else if (currentPath.includes('/health')) {
+            document.querySelector('.nav-list li a .bx-heart').parentElement.classList.add('active');
+        } else if (currentPath.includes('/education')) {
+            document.querySelector('.nav-list li a .bxs-school').parentElement.classList.add('active');
         }
     }
 

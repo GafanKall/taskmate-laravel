@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="{{ asset('../css/main/home.css') }}">
+    <link rel="stylesheet" href="{{ asset('../css/main/completed.css') }}">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <title>TaskMate - Completed Tasks</title>
 </head>
@@ -17,39 +17,52 @@
     </header>
     <section class="home-section">
         <div class="list-task" id="taskList">
-            @foreach ($tasks as $task)
-            <div class="task" data-task-id="{{ $task->id }}">
-                <div class="content completed">
-                    <label class="custom-checkbox">
-                        <input type="checkbox" class="task-checkbox" checked>
-                        <span class="checkmark"></span>
-                    </label>
-                    <p class="task-text">{{ $task->title }}</p>
-                    <div class="category">
-                        @if($task->category == 'work')
-                            🛠️ Work
-                        @elseif($task->category == 'personal')
-                            🏠 Personal
-                        @elseif($task->category == 'education')
-                            📚 Education
-                        @elseif($task->category == 'health')
-                            ❤️ Health
-                        @endif
+            @if(count($tasks) > 0)
+                @foreach ($tasks as $task)
+                <div class="task" data-task-id="{{ $task->id }}">
+                    <div class="content completed">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" class="task-checkbox" checked>
+                            <span class="checkmark"></span>
+                        </label>
+                        <p class="task-text">{{ $task->title }}</p>
+                        <div class="category">
+                            @if($task->category == 'work')
+                                🛠️ Work
+                            @elseif($task->category == 'personal')
+                                🏠 Personal
+                            @elseif($task->category == 'education')
+                                📚 Education
+                            @elseif($task->category == 'health')
+                                ❤️ Health
+                            @endif
+                        </div>
+                    </div>
+                    <div class="more-btn">
+                        <div class="time">
+                            <i class='bx bx-time-five'></i>
+                            <div class="start-time">{{ $task->start_time ? \Carbon\Carbon::parse($task->start_time)->format('H:i') : '--:--' }}</div>
+                            -
+                            <div class="end-time">{{ $task->end_time ? \Carbon\Carbon::parse($task->end_time)->format('H:i') : '--:--' }}</div>
+                        </div>
+                        <div class="task-actions">
+                            <button class="delete-task-btn" data-task-id="{{ $task->id }}"><i class='bx bx-trash'></i></button>
+                        </div>
                     </div>
                 </div>
-                <div class="more-btn">
-                    <div class="time">
-                        <i class='bx bx-time-five'></i>
-                        <div class="start-time">{{ $task->start_time ? \Carbon\Carbon::parse($task->start_time)->format('H:i') : '--:--' }}</div>
-                        -
-                        <div class="end-time">{{ $task->end_time ? \Carbon\Carbon::parse($task->end_time)->format('H:i') : '--:--' }}</div>
+                @endforeach
+            @else
+                <div class="empty-completed-tasks">
+                    <div class="empty-icon">
+                        <i class='bx bx-check-circle'></i>
                     </div>
-                    <div class="task-actions">
-                        <button class="delete-task-btn" data-task-id="{{ $task->id }}"><i class='bx bx-trash'></i></button>
-                    </div>
+                    <h3>No completed tasks yet</h3>
+                    <p>Complete some tasks to see them here!</p>
+                    <a href="{{ route('home') }}" class="go-home-btn">
+                        <i class='bx bx-arrow-back'></i> Go to Tasks
+                    </a>
                 </div>
-            </div>
-            @endforeach
+            @endif
         </div>
     </section>
 
@@ -96,6 +109,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     // If task is uncompleted, remove it from completed tasks view
                     if (!data.completed) {
                         taskElement.remove();
+
+                        // Check if there are any tasks left
+                        if (document.querySelectorAll('.task').length === 0) {
+                            // Reload the page to show the empty state
+                            window.location.reload();
+                        }
                     }
                 })
                 .catch(error => console.error('Error toggling task completion:', error));
@@ -129,6 +148,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 deleteModal.style.display = 'none';
                 // Remove the task element from DOM
                 document.querySelector(`.task[data-task-id="${taskToDeleteId}"]`).remove();
+
+                // Check if there are any tasks left
+                if (document.querySelectorAll('.task').length === 0) {
+                    // Reload the page to show the empty state
+                    window.location.reload();
+                }
             })
             .catch(error => console.error('Error deleting task:', error));
         }

@@ -39,7 +39,7 @@
                     <label for="taskCategory">Category</label>
                     <select id="taskCategory" name="category" required>
                         <option value="work">🛠️ Work</option>
-                        <option value="personal">🏠 Personal</option>
+                        <option value="personal">👤 Personal</option>
                         <option value="education">📚 Education</option>
                         <option value="health">❤️ Health</option>
                     </select>
@@ -63,40 +63,46 @@
 
         <!-- Task List -->
         <div class="list-task" id="taskList">
-            @foreach ($tasks as $task)
-            <div class="task" data-task-id="{{ $task->id }}">
-                <div class="content {{ $task->completed ? 'completed' : '' }}">
-                    <label class="custom-checkbox">
-                        <input type="checkbox" class="task-checkbox" {{ $task->completed ? 'checked' : '' }}>
-                        <span class="checkmark"></span>
-                    </label>
-                    <p class="task-text">{{ $task->title }}</p>
-                    <div class="category">
-                        @if($task->category == 'work')
-                            🛠️ Work
-                        @elseif($task->category == 'personal')
-                            🏠 Personal
-                        @elseif($task->category == 'education')
-                            📚 Education
-                        @elseif($task->category == 'health')
-                            ❤️ Health
-                        @endif
+            @if(count($tasks) > 0)
+                @foreach ($tasks as $task)
+                <div class="task" data-task-id="{{ $task->id }}">
+                    <div class="content {{ $task->completed ? 'completed' : '' }}">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" class="task-checkbox" {{ $task->completed ? 'checked' : '' }}>
+                            <span class="checkmark"></span>
+                        </label>
+                        <p class="task-text">{{ $task->title }}</p>
+                        <div class="category">
+                            @if($task->category == 'work')
+                                🛠️ Work
+                            @elseif($task->category == 'personal')
+                                👤 Personal
+                            @elseif($task->category == 'education')
+                                📚 Education
+                            @elseif($task->category == 'health')
+                                ❤️ Health
+                            @endif
+                        </div>
+                    </div>
+                    <div class="more-btn">
+                        <div class="time">
+                            <i class='bx bx-time-five'></i>
+                            <div class="start-time">{{ $task->start_time ? \Carbon\Carbon::parse($task->start_time)->format('H:i') : '--:--' }}</div>
+                            -
+                            <div class="end-time">{{ $task->end_time ? \Carbon\Carbon::parse($task->end_time)->format('H:i') : '--:--' }}</div>
+                        </div>
+                        <div class="task-actions">
+                            <button class="edit-task-btn" data-task-id="{{ $task->id }}"><i class='bx bx-edit'></i></button>
+                            <button class="delete-task-btn" data-task-id="{{ $task->id }}"><i class='bx bx-trash'></i></button>
+                        </div>
                     </div>
                 </div>
-                <div class="more-btn">
-                    <div class="time">
-                        <i class='bx bx-time-five'></i>
-                        <div class="start-time">{{ $task->start_time ? \Carbon\Carbon::parse($task->start_time)->format('H:i') : '--:--' }}</div>
-                        -
-                        <div class="end-time">{{ $task->end_time ? \Carbon\Carbon::parse($task->end_time)->format('H:i') : '--:--' }}</div>
-                    </div>
-                    <div class="task-actions">
-                        <button class="edit-task-btn" data-task-id="{{ $task->id }}"><i class='bx bx-edit'></i></button>
-                        <button class="delete-task-btn" data-task-id="{{ $task->id }}"><i class='bx bx-trash'></i></button>
-                    </div>
+                @endforeach
+            @else
+                <div class="empty-task-message">
+                    <p>No tasks available. Click "Create Task" to add a new task.</p>
                 </div>
-            </div>
-            @endforeach
+            @endif
         </div>
 
         <!-- Delete Confirmation Modal -->

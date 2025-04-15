@@ -85,8 +85,9 @@
   background: #ffffff;
 }
 .sidebar li a:hover{
-  background: #e1e1e1;
+  background: #3D90D7;
   transition: var(--transition);
+
 }
 .sidebar li a .links_name{
   color: #000000;
@@ -98,7 +99,7 @@
 }
 .sidebar li a:hover .links_name,
 .sidebar li a:hover i{
-  color: #11101D;
+    color: white;
 }
 .sidebar li i{
   height: 50px;
@@ -107,13 +108,14 @@
   border-radius: 12px;
 }
 .sidebar li.profile{
+/* position: fixed; */
   height: 50px;
   width: 100%;
   border-radius: 12px;
   left: 0;
-  bottom: -250px;
+  bottom: -130px;
   padding: 10px 14px;
-  background: #e1e1e1;
+  background: #3D90D7;
   overflow: hidden;
 }
 .sidebar li .profile-details{
@@ -131,7 +133,7 @@
 .sidebar li.profile .name{
   font-size: 15px;
   font-weight: 400;
-  color: #000000;
+  color: white;
   white-space: nowrap;
 }
 .sidebar .profile #log_out{
@@ -145,15 +147,17 @@
   line-height: 60px;
   border-radius: 0px;
   cursor: pointer;
+  color: white;
 }
 
 .sidebar li a.active {
-    background: #e1e1e1;
+    background: #3D90D7;
+
 }
 
 .sidebar li a.active .links_name,
 .sidebar li a.active i {
-    color: #11101D;
+    color: white;
 }
 
 .profile {

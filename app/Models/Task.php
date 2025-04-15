@@ -14,6 +14,8 @@ class Task extends Model
         'completed',
         'start_time',
         'end_time',
-        'user_id' 
+        'user_id'
     ];
+
 }
+

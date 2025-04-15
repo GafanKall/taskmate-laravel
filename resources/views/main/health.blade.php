@@ -1,4 +1,4 @@
-{{-- personal.blade.php --}}
+{{-- health.blade.php --}}
 @extends('layouts.sidebar')
 <!DOCTYPE html>
 <html lang="en">
@@ -7,31 +7,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="{{ asset('../css/main/personal.css') }}">
+    <link rel="stylesheet" href="{{ asset('../css/main/health.css') }}">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-    <title>TaskMate - Personal Tasks</title>
+    <title>TaskMate - Health Tasks</title>
 </head>
 <body>
     <header class="header-section">
-        <div class="text">Personal Tasks</div>
+        <div class="text">Health Tasks</div>
         <p>Today, {{ now()->format('l, j F Y') }} </p>
     </header>
 
-    <section>
+    <section class="home-section">
         <button class="add-task" id="showFormBtn">Create Task</button>
 
         <!-- Task List Container -->
         <div class="list-task" id="taskList">
             @php
-            $personalTasks = \App\Models\Task::where('user_id', auth()->id())
-                ->where('category', 'personal')
+            $healthTasks = \App\Models\Task::where('user_id', auth()->id())
+                ->where('category', 'health')
                 ->orderBy('completed')
                 ->orderBy('created_at', 'desc')
                 ->get();
             @endphp
 
-            @if(count($personalTasks) > 0)
-                @foreach ($personalTasks as $task)
+            @if(count($healthTasks) > 0)
+                @foreach ($healthTasks as $task)
                 <div class="task" data-task-id="{{ $task->id }}">
                     <div class="content {{ $task->completed ? 'completed' : '' }}">
                         <label class="custom-checkbox">
@@ -39,7 +39,7 @@
                             <span class="checkmark"></span>
                         </label>
                         <p class="task-text">{{ $task->title }}</p>
-                        <div class="category">👤 Personal</div>
+                        <div class="category">❤️ Health</div>
                     </div>
                     <div class="more-btn">
                         <div class="time">
@@ -57,7 +57,7 @@
                 @endforeach
             @else
                 <div class="empty-task-message">
-                    <p>No personal tasks available. Click "Create Task" to add a new personal task.</p>
+                    <p>No health tasks available. Click "Create Task" to add a new health task.</p>
                 </div>
             @endif
         </div>
@@ -82,9 +82,9 @@
                     <label for="taskCategory">Category</label>
                     <select id="taskCategory" name="category" required>
                         <option value="work">🛠️ Work</option>
-                        <option value="personal" selected>👤 Personal</option>
+                        <option value="personal">👤 Personal</option>
                         <option value="education">📚 Education</option>
-                        <option value="health">❤️ Health</option>
+                        <option value="health" selected>❤️ Health</option>
                     </select>
                 </div>
                 <div class="form-group time-inputs">
@@ -178,8 +178,8 @@
             formTitle.textContent = 'Create New Task';
             submitTaskBtn.textContent = 'Create Task';
 
-            // Pre-select personal category
-            document.getElementById('taskCategory').value = 'personal';
+            // Pre-select health category
+            document.getElementById('taskCategory').value = 'health';
 
             taskForm.classList.add('show');
             modalOverlay.classList.add('show');

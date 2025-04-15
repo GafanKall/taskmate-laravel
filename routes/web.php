@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Completed;
+use App\Http\Controllers\Education;
+use App\Http\Controllers\Health;
 use App\Http\Controllers\Personal;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\Work;
@@ -18,6 +20,8 @@ Route::get('/home', [Home::class, 'index'])->middleware('auth')->name('home');
 Route::get('/personal', [Personal::class, 'index']);
 Route::get('/work', [Work::class, 'index']);
 Route::get('/completed', [Completed::class, 'index']);
+Route::get('/education', [Education::class, 'index']);
+Route::get('/health', [Health::class, 'index']);
 
 // Auth
 Route::get('/register', [AuthController::class, 'index'])->name('register');
@@ -35,3 +39,4 @@ Route::middleware('auth')->group(function () {
     Route::patch('/tasks/{id}/toggle-complete', [TaskController::class, 'toggleComplete']);
     Route::get('/completed', [TaskController::class, 'completed'])->name('tasks.completed');
 });
+

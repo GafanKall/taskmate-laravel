@@ -43,6 +43,18 @@
                     <span class="links_name">Work</span>
                 </a>
             </li>
+            <li>
+                <a href="/education">
+                    <i class='bx bxs-school'></i>
+                    <span class="links_name">Education</span>
+                </a>
+            </li>
+            <li>
+                <a href="/health">
+                    <i class='bx bx-heart' ></i>
+                    <span class="links_name">Health</span>
+                </a>
+            </li>
             <li class="profile">
                 <div class="profile-details">
                     <div class="name">{{ Auth::user()->name }}</div>

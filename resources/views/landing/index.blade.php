@@ -32,7 +32,9 @@
             <h1>Hey, Go-Getter! <br> Welcome to Task<span style="color: #39A5ED;">Mate</span></h1>
             <p>Smash your to-dos, stay on top of your game, and get <br> things done effortlessly. TaskMate’s got your back <br>
                 for a smoother, smarter way to tackle your day!</p>
-            <button>Get Started</button>
+                <a href="{{ Route('register') }}">
+                    <button>Get Started</button>
+                </a>
         </div>
         <div class="image">
             <img src="{{ '../images/landingImage.png' }}" alt="">

@@ -97,4 +97,18 @@ class TaskController extends Controller
 
     return view('main.completed')->with('tasks', $tasks);;
 }
+
+public function personal()
+{
+    $greeting = $this->getGreeting();
+    $currentDateTime = Carbon::now()->format('l, j F Y');
+    $personalTasks = Task::where('user_id', Auth::id())
+                      ->where('category', 'personal')
+                      ->orderBy('completed')
+                      ->orderBy('created_at', 'desc')
+                      ->get();
+
+    return view('personal', compact('greeting', 'currentDateTime', 'personalTasks'));
+}
+
 }
