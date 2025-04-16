@@ -17,7 +17,7 @@
         <ul class="nav-list">
             <li>
                 <i class='bx bx-search'></i>
-                <input type="text" placeholder="Search...">
+                <input type="text" placeholder="Search..." id="searchInput">
             </li>
             <li>
                 <a href="/home">
@@ -29,6 +29,12 @@
                 <a href="/completed">
                     <i class='bx bx-checkbox-checked'></i>
                     <span class="links_name">Completed</span>
+                </a>
+            </li>
+            <li>
+                <a href="/calendar">
+                    <i class='bx bx-calendar'></i>
+                    <span class="links_name">Calendar</span>
                 </a>
             </li>
             <li>

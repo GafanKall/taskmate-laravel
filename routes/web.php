@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Calendar;
 use App\Http\Controllers\Completed;
 use App\Http\Controllers\Education;
 use App\Http\Controllers\Health;
@@ -40,3 +41,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/completed', [TaskController::class, 'completed'])->name('tasks.completed');
 });
 
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/calendar', [Calendar::class, 'index'])->name('calendar');
+    Route::get('/events', [Calendar::class, 'getEvents']);
+    Route::get('/events/{event}', [Calendar::class, 'show']);
+    Route::post('/events', [Calendar::class, 'store']);
+    Route::put('/events/{event}', [Calendar::class, 'update']);
+    Route::delete('/events/{event}', [Calendar::class, 'destroy']);
+});

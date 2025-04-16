@@ -113,7 +113,7 @@
   width: 100%;
   border-radius: 12px;
   left: 0;
-  bottom: -130px;
+  bottom: -80px;
   padding: 10px 14px;
   background: #3D90D7;
   overflow: hidden;
@@ -173,4 +173,9 @@
     left: 250px;
     width: calc(100% - 250px);
   }
+}
+
+
+#searchInput {
+    color: black;
 }
