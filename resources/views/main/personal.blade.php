@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="{{ asset('../css/main/personal.css') }}">
+    <link rel="stylesheet" href="{{ asset('../css/main/home.css') }}">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <title>TaskMate - Personal Tasks</title>
 </head>
@@ -43,14 +43,43 @@
                     </div>
                     <div class="more-btn">
                         <div class="time">
+                            <i class='bx bx-calendar-event'></i>
+                            @if ($task->start_datetime)
+                                <div class="start-date">
+                                    {{ \Carbon\Carbon::parse($task->start_datetime)->format('d M Y') }}</div>
+                            @else
+                                <div class="start-date">--/--/----</div>
+                            @endif
+
+                            <div class="">-</div>
+                            @if ($task->end_datetime)
+                                <div class="end-date">
+                                    {{ \Carbon\Carbon::parse($task->end_datetime)->format('d M Y') }}
+                                </div>
+                            @else
+                                <div class="end-date">--/--/----</div>
+                            @endif
+
                             <i class='bx bx-time-five'></i>
-                            <div class="start-time">{{ $task->start_time ? \Carbon\Carbon::parse($task->start_time)->format('H:i') : '--:--' }}</div>
+                            @if ($task->start_datetime)
+                                <div class="start-time">
+                                    {{ \Carbon\Carbon::parse($task->start_datetime)->format('H:i') }}</div>
+                            @else
+                                <div class="start-time">--:--</div>
+                            @endif
                             -
-                            <div class="end-time">{{ $task->end_time ? \Carbon\Carbon::parse($task->end_time)->format('H:i') : '--:--' }}</div>
+                            @if ($task->end_datetime)
+                                <div class="end-time">
+                                    {{ \Carbon\Carbon::parse($task->end_datetime)->format('H:i') }}</div>
+                            @else
+                                <div class="end-time">--:--</div>
+                            @endif
                         </div>
                         <div class="task-actions">
-                            <button class="edit-task-btn" data-task-id="{{ $task->id }}"><i class='bx bx-edit'></i></button>
-                            <button class="delete-task-btn" data-task-id="{{ $task->id }}"><i class='bx bx-trash'></i></button>
+                            <button class="edit-task-btn" data-task-id="{{ $task->id }}"><i
+                                    class='bx bx-edit'></i></button>
+                            <button class="delete-task-btn" data-task-id="{{ $task->id }}"><i
+                                    class='bx bx-trash'></i></button>
                         </div>
                     </div>
                 </div>
@@ -87,14 +116,30 @@
                         <option value="health">❤️ Health</option>
                     </select>
                 </div>
-                <div class="form-group time-inputs">
-                    <div class="time-input">
-                        <label for="startTime">Start Time</label>
-                        <input type="time" id="startTime" name="start_time">
+                <div class="form-group datetime-inputs">
+                    <div class="datetime-label">Start</div>
+                    <div class="datetime-input-group">
+                        <div class="datetime-input">
+                            <label for="startDate">Date</label>
+                            <input type="date" id="startDate" name="start_date">
+                        </div>
+                        <div class="datetime-input">
+                            <label for="startTime">Time</label>
+                            <input type="time" id="startTime" name="start_time">
+                        </div>
                     </div>
-                    <div class="time-input">
-                        <label for="endTime">End Time</label>
-                        <input type="time" id="endTime" name="end_time">
+                </div>
+                <div class="form-group datetime-inputs">
+                    <div class="datetime-label">End</div>
+                    <div class="datetime-input-group">
+                        <div class="datetime-input">
+                            <label for="endDate">Date</label>
+                            <input type="date" id="endDate" name="end_date">
+                        </div>
+                        <div class="datetime-input">
+                            <label for="endTime">Time</label>
+                            <input type="time" id="endTime" name="end_time">
+                        </div>
                     </div>
                 </div>
                 <div class="form-actions">
@@ -211,25 +256,43 @@
             const formData = {
                 title: document.getElementById('taskName').value,
                 category: document.getElementById('taskCategory').value,
+                start_date: document.getElementById('startDate').value || null,
                 start_time: document.getElementById('startTime').value || null,
+                end_date: document.getElementById('endDate').value || null,
                 end_time: document.getElementById('endTime').value || null
             };
 
             const url = isEditMode ? `/tasks/${taskId}` : '/tasks';
             const method = isEditMode ? 'PUT' : 'POST';
 
+            console.log('Submitting data:', formData, 'to URL:', url, 'with method:', method);
+
             fetch(url, {
                 method: method,
                 headers: setupAjaxHeaders(),
                 body: JSON.stringify(formData)
             })
-            .then(response => response.json())
+            .then(response => {
+                console.log('Response status:', response.status);
+                if (!response.ok) {
+                    // Get more error details
+                    return response.json().then(errorData => {
+                        console.error('Server error details:', errorData);
+                        throw new Error(errorData.message || 'Network response was not ok');
+                    });
+                }
+                return response.json();
+            })
             .then(data => {
+                console.log('Success data:', data);
                 hideForm();
                 // Refresh the page to show updated tasks
                 window.location.reload();
             })
-            .catch(error => console.error('Error saving task:', error));
+            .catch(error => {
+                console.error('Error saving task:', error);
+                alert('There was an error saving your task. Please try again.');
+            });
         });
 
         // Edit task functionality
@@ -249,12 +312,20 @@
                     document.getElementById('taskName').value = task.title;
                     document.getElementById('taskCategory').value = task.category;
 
+                    if (task.start_date) {
+                        document.getElementById('startDate').value = task.start_date;
+                    }
+
                     if (task.start_time) {
-                        document.getElementById('startTime').value = task.start_time.substring(0, 5);
+                        document.getElementById('startTime').value = task.start_time;
+                    }
+
+                    if (task.end_date) {
+                        document.getElementById('endDate').value = task.end_date;
                     }
 
                     if (task.end_time) {
-                        document.getElementById('endTime').value = task.end_time.substring(0, 5);
+                        document.getElementById('endTime').value = task.end_time;
                     }
 
                     // Set form to edit mode

@@ -12,9 +12,14 @@ class Task extends Model
         'title',
         'category',
         'completed',
-        'start_time',
-        'end_time',
+        'start_datetime',
+        'end_datetime',
         'user_id'
+    ];
+
+    protected $casts = [
+        'start_datetime' => 'datetime',
+        'end_datetime' => 'datetime',
     ];
 
 }

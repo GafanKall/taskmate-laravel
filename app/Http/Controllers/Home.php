@@ -33,9 +33,9 @@ class Home extends Controller
 
         // Get user's tasks
         $tasks = Task::where('user_id', Auth::id())
-                      ->orderBy('completed')
-                      ->orderBy('start_time')
-                      ->get();
+             ->orderBy('completed')
+             ->orderBy('start_datetime')
+             ->get();
 
         return view('main.home', compact('currentDateTime', 'greeting', 'tasks'));
     }

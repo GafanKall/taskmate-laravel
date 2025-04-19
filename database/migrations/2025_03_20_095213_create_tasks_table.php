@@ -13,15 +13,15 @@ class CreateTasksTable extends Migration
             $table->string('title');
             $table->string('category');
             $table->boolean('completed')->default(false);
-            $table->time('start_time')->nullable();
-            $table->time('end_time')->nullable();
+            $table->dateTime('start_datetime')->nullable();
+            $table->dateTime('end_datetime')->nullable();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
 
     public function down()
-    {
-        Schema::dropIfExists('tasks');
-    }
+{
+    Schema::dropIfExists('tasks');
+}
 }

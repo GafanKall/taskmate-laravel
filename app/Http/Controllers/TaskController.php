@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Carbon\Carbon;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,20 +25,30 @@ class TaskController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'category' => 'required|string',
-            'start_time' => 'nullable|date_format:H:i',
-            'end_time' => 'nullable|date_format:H:i|after:start_time',
+            'start_date' => 'nullable|date',
+            'start_time' => 'nullable|string',
+            'end_date' => 'nullable|date',
+            'end_time' => 'nullable|string',
         ]);
 
-        $task = Task::create([
-            'title' => $validated['title'],
-            'category' => $validated['category'],
-            'start_time' => $validated['start_time'],
-            'end_time' => $validated['end_time'],
-            'completed' => false,
-            'user_id' => Auth::id(),
-        ]);
+        $task = new Task();
+        $task->title = $validated['title'];
+        $task->category = $validated['category'];
+        $task->user_id = Auth::id();
 
-        return response()->json($task, 201);
+        // Handle start datetime
+        if (!empty($validated['start_date']) && !empty($validated['start_time'])) {
+            $task->start_datetime = Carbon::parse($validated['start_date'] . ' ' . $validated['start_time']);
+        }
+
+        // Handle end datetime
+        if (!empty($validated['end_date']) && !empty($validated['end_time'])) {
+            $task->end_datetime = Carbon::parse($validated['end_date'] . ' ' . $validated['end_time']);
+        }
+
+        $task->save();
+
+        return response()->json($task);
     }
 
     /**
@@ -58,16 +68,36 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // Find the task that belongs to the authenticated user
         $task = Task::where('user_id', Auth::id())->findOrFail($id);
 
         $validated = $request->validate([
-            'title' => 'sometimes|required|string|max:255',
-            'category' => 'sometimes|required|string',
-            'start_time' => 'nullable|date_format:H:i',
-            'end_time' => 'nullable|date_format:H:i|after:start_time',
+            'title' => 'required|string|max:255',
+            'category' => 'required|string',
+            'start_date' => 'nullable|date',
+            'start_time' => 'nullable|string',
+            'end_date' => 'nullable|date',
+            'end_time' => 'nullable|string',
         ]);
 
-        $task->update($validated);
+        $task->title = $validated['title'];
+        $task->category = $validated['category'];
+
+        // Handle start datetime
+        if (!empty($validated['start_date']) && !empty($validated['start_time'])) {
+            $task->start_datetime = Carbon::parse($validated['start_date'] . ' ' . $validated['start_time']);
+        } else {
+            $task->start_datetime = null;
+        }
+
+        // Handle end datetime
+        if (!empty($validated['end_date']) && !empty($validated['end_time'])) {
+            $task->end_datetime = Carbon::parse($validated['end_date'] . ' ' . $validated['end_time']);
+        } else {
+            $task->end_datetime = null;
+        }
+
+        $task->save();
 
         return response()->json($task);
     }
@@ -85,7 +115,18 @@ class TaskController extends Controller
     public function show($id)
     {
         $task = Task::where('user_id', Auth::id())->findOrFail($id);
-        return response()->json($task);
+
+        // Make sure to format dates for frontend
+        return response()->json([
+            'id' => $task->id,
+            'title' => $task->title,
+            'category' => $task->category,
+            'completed' => (bool) $task->completed,
+            'start_date' => $task->start_datetime ? $task->start_datetime->format('Y-m-d') : null,
+            'start_time' => $task->start_datetime ? $task->start_datetime->format('H:i') : null,
+            'end_date' => $task->end_datetime ? $task->end_datetime->format('Y-m-d') : null,
+            'end_time' => $task->end_datetime ? $task->end_datetime->format('H:i') : null,
+        ]);
     }
 
     public function completed()

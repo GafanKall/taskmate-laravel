@@ -44,14 +44,30 @@
                         <option value="health">❤️ Health</option>
                     </select>
                 </div>
-                <div class="form-group time-inputs">
-                    <div class="time-input">
-                        <label for="startTime">Start Time</label>
-                        <input type="time" id="startTime" name="start_time">
+                <div class="form-group datetime-inputs">
+                    <div class="datetime-label">Start</div>
+                    <div class="datetime-input-group">
+                        <div class="datetime-input">
+                            <label for="startDate">Date</label>
+                            <input type="date" id="startDate" name="start_date">
+                        </div>
+                        <div class="datetime-input">
+                            <label for="startTime">Time</label>
+                            <input type="time" id="startTime" name="start_time">
+                        </div>
                     </div>
-                    <div class="time-input">
-                        <label for="endTime">End Time</label>
-                        <input type="time" id="endTime" name="end_time">
+                </div>
+                <div class="form-group datetime-inputs">
+                    <div class="datetime-label">End</div>
+                    <div class="datetime-input-group">
+                        <div class="datetime-input">
+                            <label for="endDate">Date</label>
+                            <input type="date" id="endDate" name="end_date">
+                        </div>
+                        <div class="datetime-input">
+                            <label for="endTime">Time</label>
+                            <input type="time" id="endTime" name="end_time">
+                        </div>
                     </div>
                 </div>
                 <div class="form-actions">
@@ -63,40 +79,77 @@
 
         <!-- Task List -->
         <div class="list-task" id="taskList">
-            @if(count($tasks) > 0)
+            @if (count($tasks) > 0)
                 @foreach ($tasks as $task)
-                <div class="task" data-task-id="{{ $task->id }}">
-                    <div class="content {{ $task->completed ? 'completed' : '' }}">
-                        <label class="custom-checkbox">
-                            <input type="checkbox" class="task-checkbox" {{ $task->completed ? 'checked' : '' }}>
-                            <span class="checkmark"></span>
-                        </label>
-                        <p class="task-text">{{ $task->title }}</p>
-                        <div class="category">
-                            @if($task->category == 'work')
-                                🛠️ Work
-                            @elseif($task->category == 'personal')
-                                👤 Personal
-                            @elseif($task->category == 'education')
-                                📚 Education
-                            @elseif($task->category == 'health')
-                                ❤️ Health
-                            @endif
+                    <div class="task" data-task-id="{{ $task->id }}">
+                        <div class="content {{ $task->completed ? 'completed' : '' }}">
+                            <label class="custom-checkbox">
+                                <input type="checkbox" class="task-checkbox" {{ $task->completed ? 'checked' : '' }}>
+                                <span class="checkmark"></span>
+                            </label>
+                            <p class="task-text">{{ $task->title }}</p>
+                            <div class="category">
+                                @if ($task->category == 'work')
+                                    🛠️ Work
+                                @elseif($task->category == 'personal')
+                                    👤 Personal
+                                @elseif($task->category == 'education')
+                                    📚 Education
+                                @elseif($task->category == 'health')
+                                    ❤️ Health
+                                @endif
+                            </div>
+                        </div>
+                        <div class="more-btn">
+                            <div class="time">
+                                <i class='bx bx-calendar-event'></i>
+                                @if ($task->start_datetime)
+                                    <div class="start-date">
+                                        {{ \Carbon\Carbon::parse($task->start_datetime)->format('d M Y') }}</div>
+                                @else
+                                    <div class="start-date">--/--/----</div>
+                                @endif
+
+                                <div class="">-</div>
+                                @if ($task->end_datetime)
+                                    <div class="end-date">
+                                        {{ \Carbon\Carbon::parse($task->end_datetime)->format('d M Y') }}
+                                    </div>
+                                @else
+                                    <div class="end-date">--/--/----</div>
+                                @endif
+
+                                @if ($task->end_datetime)
+                                    <div class="end-time">
+                                        {{ \Carbon\Carbon::parse($task->end_datetime)->format('H:i') }}
+                                    </div>
+                                @else
+                                    <div class="end-time">--:--</div>
+                                @endif
+
+                                <i class='bx bx-time-five'></i>
+                                @if ($task->start_datetime)
+                                    <div class="start-time">
+                                        {{ \Carbon\Carbon::parse($task->start_datetime)->format('H:i') }}</div>
+                                @else
+                                    <div class="start-time">--:--</div>
+                                @endif
+                                -
+                                @if ($task->end_datetime)
+                                    <div class="end-time">
+                                        {{ \Carbon\Carbon::parse($task->end_datetime)->format('H:i') }}</div>
+                                @else
+                                    <div class="end-time">--:--</div>
+                                @endif
+                            </div>
+                            <div class="task-actions">
+                                <button class="edit-task-btn" data-task-id="{{ $task->id }}"><i
+                                        class='bx bx-edit'></i></button>
+                                <button class="delete-task-btn" data-task-id="{{ $task->id }}"><i
+                                        class='bx bx-trash'></i></button>
+                            </div>
                         </div>
                     </div>
-                    <div class="more-btn">
-                        <div class="time">
-                            <i class='bx bx-time-five'></i>
-                            <div class="start-time">{{ $task->start_time ? \Carbon\Carbon::parse($task->start_time)->format('H:i') : '--:--' }}</div>
-                            -
-                            <div class="end-time">{{ $task->end_time ? \Carbon\Carbon::parse($task->end_time)->format('H:i') : '--:--' }}</div>
-                        </div>
-                        <div class="task-actions">
-                            <button class="edit-task-btn" data-task-id="{{ $task->id }}"><i class='bx bx-edit'></i></button>
-                            <button class="delete-task-btn" data-task-id="{{ $task->id }}"><i class='bx bx-trash'></i></button>
-                        </div>
-                    </div>
-                </div>
                 @endforeach
             @else
                 <div class="empty-task-message">
@@ -117,194 +170,227 @@
             </div>
         </div>
     </section>
-
-
 </body>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    let taskToDeleteId = null;
-    let isEditMode = false;
+    document.addEventListener('DOMContentLoaded', function() {
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        let taskToDeleteId = null;
+        let isEditMode = false;
 
-    // Set up AJAX headers
-    function setupAjaxHeaders() {
-        return {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': csrfToken,
-            'Accept': 'application/json'
-        };
-    }
+        // Set up AJAX headers
+        function setupAjaxHeaders() {
+            return {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken,
+                'Accept': 'application/json'
+            };
+        }
 
-    // Checkbox functionality - Toggle task completion
-    function setupCheckboxListeners() {
-        document.querySelectorAll('.task-checkbox').forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
-                const taskElement = this.closest('.task');
-                const taskId = taskElement.dataset.taskId;
-                const contentElement = taskElement.querySelector('.content');
+        // Checkbox functionality - Toggle task completion
+        function setupCheckboxListeners() {
+            document.querySelectorAll('.task-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const taskElement = this.closest('.task');
+                    const taskId = taskElement.dataset.taskId;
+                    const contentElement = taskElement.querySelector('.content');
 
-                // Toggle completion status via API
-                fetch(`/tasks/${taskId}/toggle-complete`, {
-                    method: 'PATCH',
-                    headers: setupAjaxHeaders()
+                    // Toggle completion status via API
+                    fetch(`/tasks/${taskId}/toggle-complete`, {
+                            method: 'PATCH',
+                            headers: setupAjaxHeaders()
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.completed) {
+                                contentElement.classList.add('completed');
+                                taskElement.style.backgroundColor = '#f9f9f9';
+                            } else {
+                                contentElement.classList.remove('completed');
+                                taskElement.style.backgroundColor = '#ffffff';
+                            }
+                        })
+                        .catch(error => console.error('Error toggling task completion:',
+                            error));
+                });
+            });
+        }
+
+        // Form show/hide functionality
+        const showFormBtn = document.getElementById('showFormBtn');
+        const closeFormBtn = document.getElementById('closeFormBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const taskForm = document.getElementById('taskForm');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const taskCreateForm = document.getElementById('taskCreateForm');
+        const formTitle = document.getElementById('formTitle');
+        const submitTaskBtn = document.getElementById('submitTaskBtn');
+        const startTimeGroup = document.getElementById('startTimeGroup');
+        const endTimeGroup = document.getElementById('endTimeGroup');
+
+
+        // Show form and overlay
+        showFormBtn.addEventListener('click', function() {
+            // Reset form for creating new task
+            resetForm();
+            isEditMode = false;
+            formTitle.textContent = 'Create New Task';
+            submitTaskBtn.textContent = 'Create Task';
+
+            taskForm.classList.add('show');
+            modalOverlay.classList.add('show');
+        });
+
+        // Hide form and overlay
+        function hideForm() {
+            taskForm.classList.remove('show');
+            modalOverlay.classList.remove('show');
+        }
+
+        closeFormBtn.addEventListener('click', hideForm);
+        cancelBtn.addEventListener('click', hideForm);
+
+        // Close form when clicking on the overlay
+        modalOverlay.addEventListener('click', hideForm);
+
+        // Reset form fields
+        function resetForm() {
+            document.getElementById('taskId').value = '';
+            taskCreateForm.reset();
+        }
+
+        // Handle form submission for create/update
+        taskCreateForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const taskId = document.getElementById('taskId').value;
+            const formData = {
+                title: document.getElementById('taskName').value,
+                category: document.getElementById('taskCategory').value,
+                start_date: document.getElementById('startDate').value || null,
+                start_time: document.getElementById('startTime').value || null,
+                end_date: document.getElementById('endDate').value || null,
+                end_time: document.getElementById('endTime').value || null
+            };
+
+            const url = isEditMode ? `/tasks/${taskId}` : '/tasks';
+            const method = isEditMode ? 'PUT' : 'POST';
+
+            console.log('Submitting data:', formData, 'to URL:', url, 'with method:', method);
+
+            fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
                 })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.completed) {
-                        contentElement.classList.add('completed');
-                        taskElement.style.backgroundColor = '#f9f9f9';
-                    } else {
-                        contentElement.classList.remove('completed');
-                        taskElement.style.backgroundColor = '#ffffff';
+                .then(response => {
+                    console.log('Response status:', response.status);
+                    if (!response.ok) {
+                        // Get more error details
+                        return response.json().then(errorData => {
+                            console.error('Server error details:', errorData);
+                            throw new Error(errorData.message ||
+                                'Network response was not ok');
+                        });
                     }
+                    return response.json();
                 })
-                .catch(error => console.error('Error toggling task completion:', error));
+                .then(data => {
+                    console.log('Success data:', data);
+                    hideForm();
+                    // Refresh the page to show updated tasks
+                    window.location.reload();
+                })
+                .catch(error => {
+                    console.error('Error saving task:', error);
+                    alert('There was an error saving your task. Please try again.');
+                });
+        });
+
+        // Edit task functionality
+        document.querySelectorAll('.edit-task-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const taskId = this.dataset.taskId;
+
+                // Get task data
+                fetch(`/tasks/${taskId}`, {
+                        method: 'GET',
+                        headers: setupAjaxHeaders()
+                    })
+                    .then(response => response.json())
+                    .then(task => {
+                        // Populate form with task data
+                        document.getElementById('taskId').value = task.id;
+                        document.getElementById('taskName').value = task.title;
+                        document.getElementById('taskCategory').value = task.category;
+
+                        if (task.start_date) {
+                            document.getElementById('startDate').value = task.start_date;
+                        }
+
+                        if (task.start_time) {
+                            document.getElementById('startTime').value = task.start_time;
+                        }
+
+                        if (task.end_date) {
+                            document.getElementById('endDate').value = task.end_date;
+                        }
+
+                        if (task.end_time) {
+                            document.getElementById('endTime').value = task.end_time;
+                        }
+
+                        // Set form to edit mode
+                        isEditMode = true;
+                        formTitle.textContent = 'Edit Task';
+                        submitTaskBtn.textContent = 'Update Task';
+
+                        // Show the form
+                        taskForm.classList.add('show');
+                        modalOverlay.classList.add('show');
+                    })
+                    .catch(error => console.error('Error fetching task data:', error));
             });
         });
-    }
 
-    // Form show/hide functionality
-    const showFormBtn = document.getElementById('showFormBtn');
-    const closeFormBtn = document.getElementById('closeFormBtn');
-    const cancelBtn = document.getElementById('cancelBtn');
-    const taskForm = document.getElementById('taskForm');
-    const modalOverlay = document.getElementById('modalOverlay');
-    const taskCreateForm = document.getElementById('taskCreateForm');
-    const formTitle = document.getElementById('formTitle');
-    const submitTaskBtn = document.getElementById('submitTaskBtn');
+        // Delete task functionality
+        const deleteModal = document.getElementById('deleteModal');
+        const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
+        const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
 
-    // Show form and overlay
-    showFormBtn.addEventListener('click', function() {
-        // Reset form for creating new task
-        resetForm();
-        isEditMode = false;
-        formTitle.textContent = 'Create New Task';
-        submitTaskBtn.textContent = 'Create Task';
-
-        taskForm.classList.add('show');
-        modalOverlay.classList.add('show');
-    });
-
-    // Hide form and overlay
-    function hideForm() {
-        taskForm.classList.remove('show');
-        modalOverlay.classList.remove('show');
-    }
-
-    closeFormBtn.addEventListener('click', hideForm);
-    cancelBtn.addEventListener('click', hideForm);
-
-    // Close form when clicking on the overlay
-    modalOverlay.addEventListener('click', hideForm);
-
-    // Reset form fields
-    function resetForm() {
-        document.getElementById('taskId').value = '';
-        taskCreateForm.reset();
-    }
-
-    // Handle form submission for create/update
-    taskCreateForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        const taskId = document.getElementById('taskId').value;
-        const formData = {
-            title: document.getElementById('taskName').value,
-            category: document.getElementById('taskCategory').value,
-            start_time: document.getElementById('startTime').value || null,
-            end_time: document.getElementById('endTime').value || null
-        };
-
-        const url = isEditMode ? `/tasks/${taskId}` : '/tasks';
-        const method = isEditMode ? 'PUT' : 'POST';
-
-        fetch(url, {
-            method: method,
-            headers: setupAjaxHeaders(),
-            body: JSON.stringify(formData)
-        })
-        .then(response => response.json())
-        .then(data => {
-            hideForm();
-            // Refresh the page to show updated tasks
-            window.location.reload();
-        })
-        .catch(error => console.error('Error saving task:', error));
-    });
-
-    // Edit task functionality
-    document.querySelectorAll('.edit-task-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            const taskId = this.dataset.taskId;
-
-            // Get task data
-            fetch(`/tasks/${taskId}`, {
-                method: 'GET',
-                headers: setupAjaxHeaders()
-            })
-            .then(response => response.json())
-            .then(task => {
-                // Populate form with task data
-                document.getElementById('taskId').value = task.id;
-                document.getElementById('taskName').value = task.title;
-                document.getElementById('taskCategory').value = task.category;
-
-                if (task.start_time) {
-                    document.getElementById('startTime').value = task.start_time.substring(0, 5);
-                }
-
-                if (task.end_time) {
-                    document.getElementById('endTime').value = task.end_time.substring(0, 5);
-                }
-
-                // Set form to edit mode
-                isEditMode = true;
-                formTitle.textContent = 'Edit Task';
-                submitTaskBtn.textContent = 'Update Task';
-
-                // Show the form
-                taskForm.classList.add('show');
-                modalOverlay.classList.add('show');
-            })
-            .catch(error => console.error('Error fetching task data:', error));
+        document.querySelectorAll('.delete-task-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                taskToDeleteId = this.dataset.taskId;
+                deleteModal.style.display = 'flex';
+            });
         });
-    });
 
-    // Delete task functionality
-    const deleteModal = document.getElementById('deleteModal');
-    const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
-    const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
-
-    document.querySelectorAll('.delete-task-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            taskToDeleteId = this.dataset.taskId;
-            deleteModal.style.display = 'flex';
+        cancelDeleteBtn.addEventListener('click', function() {
+            deleteModal.style.display = 'none';
         });
-    });
 
-    cancelDeleteBtn.addEventListener('click', function() {
-        deleteModal.style.display = 'none';
-    });
+        confirmDeleteBtn.addEventListener('click', function() {
+            if (taskToDeleteId) {
+                fetch(`/tasks/${taskToDeleteId}`, {
+                        method: 'DELETE',
+                        headers: setupAjaxHeaders()
+                    })
+                    .then(() => {
+                        deleteModal.style.display = 'none';
+                        // Remove the task element from DOM or reload page
+                        window.location.reload();
+                    })
+                    .catch(error => console.error('Error deleting task:', error));
+            }
+        });
 
-    confirmDeleteBtn.addEventListener('click', function() {
-        if (taskToDeleteId) {
-            fetch(`/tasks/${taskToDeleteId}`, {
-                method: 'DELETE',
-                headers: setupAjaxHeaders()
-            })
-            .then(() => {
-                deleteModal.style.display = 'none';
-                // Remove the task element from DOM or reload page
-                window.location.reload();
-            })
-            .catch(error => console.error('Error deleting task:', error));
-        }
+        // Initialize task checkbox listeners
+        setupCheckboxListeners();
     });
-
-    // Initialize task checkbox listeners
-    setupCheckboxListeners();
-});
 </script>
 
 </html>

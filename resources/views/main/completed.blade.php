@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="{{ asset('../css/main/completed.css') }}">
+    <link rel="stylesheet" href="{{ asset('../css/main/home.css') }}">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <title>TaskMate - Completed Tasks</title>
 </head>
@@ -40,10 +40,39 @@
                     </div>
                     <div class="more-btn">
                         <div class="time">
+                            <i class='bx bx-calendar-event'></i>
+                            @if ($task->start_datetime)
+                                <div class="start-date">
+                                    {{ \Carbon\Carbon::parse($task->start_datetime)->format('d M Y') }}
+                                </div>
+                            @else
+                                <div class="start-date">--/--/----</div>
+                            @endif
+
                             <i class='bx bx-time-five'></i>
-                            <div class="start-time">{{ $task->start_time ? \Carbon\Carbon::parse($task->start_time)->format('H:i') : '--:--' }}</div>
+                            @if ($task->start_datetime)
+                                <div class="start-time">
+                                    {{ \Carbon\Carbon::parse($task->start_datetime)->format('H:i') }}
+                                </div>
+                            @else
+                                <div class="start-time">--:--</div>
+                            @endif
                             -
-                            <div class="end-time">{{ $task->end_time ? \Carbon\Carbon::parse($task->end_time)->format('H:i') : '--:--' }}</div>
+                            @if ($task->end_datetime)
+                                <div class="end-date">
+                                    {{ \Carbon\Carbon::parse($task->end_datetime)->format('d M Y') }}
+                                </div>
+                            @else
+                                <div class="end-date">--/--/----</div>
+                            @endif
+
+                            @if ($task->end_datetime)
+                                <div class="end-time">
+                                    {{ \Carbon\Carbon::parse($task->end_datetime)->format('H:i') }}
+                                </div>
+                            @else
+                                <div class="end-time">--:--</div>
+                            @endif
                         </div>
                         <div class="task-actions">
                             <button class="delete-task-btn" data-task-id="{{ $task->id }}"><i class='bx bx-trash'></i></button>

@@ -23,7 +23,7 @@
             <ul>
                 <li><a href="#about">About</a></li>
                 <li><a href="#features">Features</a></li>
-                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#how-it-works">Usage</a></li>
                 <li><a href="#testimonials">Testimonials</a></li>
                 <li><a href="#faq">FAQ</a></li>
             </ul>
@@ -74,6 +74,8 @@
         </div>
     </div>
 
+    <div class="" id="about"></div>
+
     <!-- About Section -->
     <div id="about" class="about-section">
         <div class="about-content">
@@ -106,6 +108,8 @@
         </div>
     </div>
 
+    <div class="" id="features"></div>
+
     <!-- Features Section -->
     <div id="features" class="features">
         <h2>Why Choose Task<span style="color: #39A5ED;">Mate</span>?</h2>
@@ -134,6 +138,7 @@
         </div>
     </div>
 
+    <div class="" id="usage"></div>
     <!-- How It Works Section -->
     <div id="how-it-works" class="how-it-works">
         <h2>How Task<span style="color: #39A5ED;">Mate</span> Works</h2>
@@ -156,6 +161,7 @@
         </div>
     </div>
 
+    <div class="" id="testimonials"></div>
     <!-- Testimonials Section -->
     <div id="testimonials" class="testimonials">
         <h2>What Our Users Say</h2>
@@ -189,6 +195,7 @@
         </div>
     </div>
 
+    <div class="" id="faq"></div>
     <!-- FAQ Section -->
     <div id="faq" class="faq-section">
         <h2>Frequently Asked Questions</h2>

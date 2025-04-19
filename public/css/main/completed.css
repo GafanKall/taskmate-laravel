@@ -35,7 +35,7 @@ body {
 
 .header-section .text {
     display: inline-block;
-    color: var(--primary-color);
+    color: black;
     font-size: 25px;
     font-weight: 500;
     margin: 18px 18px 0 100px;
