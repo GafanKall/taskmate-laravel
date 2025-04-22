@@ -109,7 +109,6 @@
     </div>
 
     <div class="" id="features"></div>
-
     <!-- Features Section -->
     <div id="features" class="features">
         <h2>Why Choose Task<span style="color: #39A5ED;">Mate</span>?</h2>
@@ -123,10 +122,10 @@
             </div>
             <div class="feature-card">
                 <div class="feature-icon">
-                    <i class="fas fa-bell"></i>
+                    <i class="fa-solid fa-note-sticky"></i>
                 </div>
-                <h3>Smart Reminders</h3>
-                <p>Never miss a deadline with customizable notifications that keep you on track.</p>
+                <h3>Smart Notes</h3>
+                <p>Organize thoughts efficiently with intelligent categorization, searchable content, and seamless integration with your tasks and calendar.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">

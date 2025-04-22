@@ -20,9 +20,15 @@
                 <input type="text" placeholder="Search..." id="searchInput">
             </li>
             <li>
-                <a href="/home">
+                <a href="/dashboard">
                     <i class='bx bx-home' ></i>
-                    <span class="links_name">Home</span>
+                    <span class="links_name">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="/board">
+                    <i class='bx bx-task'></i>
+                    <span class="links_name">Board</span>
                 </a>
             </li>
             <li>
@@ -38,27 +44,9 @@
                 </a>
             </li>
             <li>
-                <a href="/personal">
-                    <i class='bx bx-user'></i>
-                    <span class="links_name">Personal</span>
-                </a>
-            </li>
-            <li>
-                <a href="/work">
-                    <i class='bx bx-briefcase-alt'></i>
-                    <span class="links_name">Work</span>
-                </a>
-            </li>
-            <li>
-                <a href="/education">
-                    <i class='bx bxs-school'></i>
-                    <span class="links_name">Education</span>
-                </a>
-            </li>
-            <li>
-                <a href="/health">
-                    <i class='bx bx-heart' ></i>
-                    <span class="links_name">Health</span>
+                <a href="/notes">
+                    <i class='bx bx-notepad'></i>
+                    <span class="links_name">Notes</span>
                 </a>
             </li>
             <li class="profile">

@@ -160,8 +160,8 @@
             const eventAllDayCheckbox = document.getElementById('eventAllDay');
 
             cancelBtn.addEventListener('click', function() {
-    hideForm();
-});
+                hideForm();
+            });
 
             // Show event form
             function openEventForm(event = null, start = null, end = null) {
@@ -350,7 +350,6 @@
             // Initialize calendar
             initCalendar();
         });
-
     </script>
 </body>
 

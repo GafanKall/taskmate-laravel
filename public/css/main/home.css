@@ -626,7 +626,7 @@ section::-webkit-scrollbar-thumb:hover {
     display: inline-flex;
     align-items: center;
     padding: 10px 20px;
-    background-color: #4CAF50;
+    background-color: var(--primary-color);
     color: white;
     border-radius: 4px;
     text-decoration: none;
@@ -637,7 +637,7 @@ section::-webkit-scrollbar-thumb:hover {
 }
 
 .go-home-btn:hover {
-    background-color: #45a049;
+    background-color: var(--hover-color);
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
@@ -681,3 +681,50 @@ section::-webkit-scrollbar-thumb:hover {
     border-radius: 4px;
 }
 
+.priority-indicator {
+    margin-right: 10px;
+}
+
+.priority {
+    font-size: 0.75rem;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.priority.high {
+    background-color: #ffeded;
+    color: #ff4d4d;
+    border: 1px solid #ffcaca;
+}
+
+.priority.medium {
+    background-color: #fff8e6;
+    color: #ffa500;
+    border: 1px solid #ffe0a3;
+}
+
+.priority.low {
+    background-color: #e6f2ff;
+    color: #3399ff;
+    border: 1px solid #a3d0ff;
+}
+
+/* Adjust the task form */
+#taskForm {
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+/* Ensure priority tasks stand out */
+.task[data-priority="3"] {
+    border-left: 4px solid #ff4d4d;
+}
+
+.task[data-priority="2"] {
+    border-left: 4px solid #ffa500;
+}
+
+.task[data-priority="1"] {
+    border-left: 4px solid #3399ff;
+}

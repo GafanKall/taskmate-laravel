@@ -1,7 +1,8 @@
 @extends('layouts.sidebar')
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -10,6 +11,7 @@
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <title>TaskMate - Completed Tasks</title>
 </head>
+
 <body>
     <header class="header-section">
         <div class="text">Completed Tasks</div>
@@ -17,68 +19,78 @@
     </header>
     <section class="home-section">
         <div class="list-task" id="taskList">
-            @if(count($tasks) > 0)
+            @if (count($tasks) > 0)
                 @foreach ($tasks as $task)
-                <div class="task" data-task-id="{{ $task->id }}">
-                    <div class="content completed">
-                        <label class="custom-checkbox">
-                            <input type="checkbox" class="task-checkbox" checked>
-                            <span class="checkmark"></span>
-                        </label>
-                        <p class="task-text">{{ $task->title }}</p>
-                        <div class="category">
-                            @if($task->category == 'work')
-                                🛠️ Work
-                            @elseif($task->category == 'personal')
-                                🏠 Personal
-                            @elseif($task->category == 'education')
-                                📚 Education
-                            @elseif($task->category == 'health')
-                                ❤️ Health
-                            @endif
+                    <div class="task" data-task-id="{{ $task->id }}" data-priority="{{ $task->priority ?? 0 }}">
+                        <div class="content completed">
+                            <label class="custom-checkbox">
+                                <input type="checkbox" class="task-checkbox" checked>
+                                <span class="checkmark"></span>
+                            </label>
+                            <p class="task-text">{{ $task->title }}</p>
+                            <div class="category">
+                                @if ($task->category == 'work')
+                                    🛠️ Work
+                                @elseif($task->category == 'personal')
+                                    🏠 Personal
+                                @elseif($task->category == 'education')
+                                    📚 Education
+                                @elseif($task->category == 'health')
+                                    ❤️ Health
+                                @endif
+                            </div>
+                            <div class="priority-indicator">
+                                @if ($task->priority == 3)
+                                    <span class="priority high">High Priority</span>
+                                @elseif ($task->priority == 2)
+                                    <span class="priority medium">Medium Priority</span>
+                                @elseif ($task->priority == 1)
+                                    <span class="priority low">Low Priority</span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="more-btn">
+                            <div class="time">
+                                <i class='bx bx-calendar-event'></i>
+                                @if ($task->start_datetime)
+                                    <div class="start-date">
+                                        {{ \Carbon\Carbon::parse($task->start_datetime)->format('d M Y') }}</div>
+                                @else
+                                    <div class="start-date">--/--/----</div>
+                                @endif
+
+                                <div class="">-</div>
+                                @if ($task->end_datetime)
+                                    <div class="end-date">
+                                        {{ \Carbon\Carbon::parse($task->end_datetime)->format('d M Y') }}
+                                    </div>
+                                @else
+                                    <div class="end-date">--/--/----</div>
+                                @endif
+
+                                <i class='bx bx-time-five'></i>
+                                @if ($task->start_datetime)
+                                    <div class="start-time">
+                                        {{ \Carbon\Carbon::parse($task->start_datetime)->format('H:i') }}</div>
+                                @else
+                                    <div class="start-time">--:--</div>
+                                @endif
+                                -
+                                @if ($task->end_datetime)
+                                    <div class="end-time">
+                                        {{ \Carbon\Carbon::parse($task->end_datetime)->format('H:i') }}</div>
+                                @else
+                                    <div class="end-time">--:--</div>
+                                @endif
+                            </div>
+                            <div class="task-actions">
+                                <button class="edit-task-btn" data-task-id="{{ $task->id }}"><i
+                                        class='bx bx-edit'></i></button>
+                                <button class="delete-task-btn" data-task-id="{{ $task->id }}"><i
+                                        class='bx bx-trash'></i></button>
+                            </div>
                         </div>
                     </div>
-                    <div class="more-btn">
-                        <div class="time">
-                            <i class='bx bx-calendar-event'></i>
-                            @if ($task->start_datetime)
-                                <div class="start-date">
-                                    {{ \Carbon\Carbon::parse($task->start_datetime)->format('d M Y') }}
-                                </div>
-                            @else
-                                <div class="start-date">--/--/----</div>
-                            @endif
-
-                            <i class='bx bx-time-five'></i>
-                            @if ($task->start_datetime)
-                                <div class="start-time">
-                                    {{ \Carbon\Carbon::parse($task->start_datetime)->format('H:i') }}
-                                </div>
-                            @else
-                                <div class="start-time">--:--</div>
-                            @endif
-                            -
-                            @if ($task->end_datetime)
-                                <div class="end-date">
-                                    {{ \Carbon\Carbon::parse($task->end_datetime)->format('d M Y') }}
-                                </div>
-                            @else
-                                <div class="end-date">--/--/----</div>
-                            @endif
-
-                            @if ($task->end_datetime)
-                                <div class="end-time">
-                                    {{ \Carbon\Carbon::parse($task->end_datetime)->format('H:i') }}
-                                </div>
-                            @else
-                                <div class="end-time">--:--</div>
-                            @endif
-                        </div>
-                        <div class="task-actions">
-                            <button class="delete-task-btn" data-task-id="{{ $task->id }}"><i class='bx bx-trash'></i></button>
-                        </div>
-                    </div>
-                </div>
                 @endforeach
             @else
                 <div class="empty-completed-tasks">
@@ -92,6 +104,7 @@
                     </a>
                 </div>
             @endif
+
         </div>
     </section>
 
@@ -107,91 +120,111 @@
         </div>
     </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    let taskToDeleteId = null;
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            let taskToDeleteId = null;
 
-    // Set up AJAX headers
-    function setupAjaxHeaders() {
-        return {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': csrfToken,
-            'Accept': 'application/json'
-        };
-    }
+            // Set up AJAX headers
+            function setupAjaxHeaders() {
+                return {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json'
+                };
+            }
 
-    // Checkbox functionality - Toggle task completion
-    function setupCheckboxListeners() {
-        document.querySelectorAll('.task-checkbox').forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
-                const taskElement = this.closest('.task');
-                const taskId = taskElement.dataset.taskId;
+            // Checkbox functionality - Toggle task completion
+            function setupCheckboxListeners() {
+                document.querySelectorAll('.task-checkbox').forEach(checkbox => {
+                    checkbox.addEventListener('change', function() {
+                        const taskElement = this.closest('.task');
+                        const taskId = taskElement.dataset.taskId;
 
-                // Toggle completion status via API
-                fetch(`/tasks/${taskId}/toggle-complete`, {
-                    method: 'PATCH',
-                    headers: setupAjaxHeaders()
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // If task is uncompleted, remove it from completed tasks view
-                    if (!data.completed) {
-                        taskElement.remove();
+                        // Toggle completion status via API
+                        fetch(`/tasks/${taskId}/toggle-complete`, {
+                                method: 'PATCH',
+                                headers: setupAjaxHeaders()
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                // If task is uncompleted, remove it from completed tasks view
+                                if (!data.completed) {
+                                    taskElement.remove();
 
-                        // Check if there are any tasks left
-                        if (document.querySelectorAll('.task').length === 0) {
-                            // Reload the page to show the empty state
-                            window.location.reload();
-                        }
-                    }
-                })
-                .catch(error => console.error('Error toggling task completion:', error));
+                                    // Check if there are any tasks left
+                                    if (document.querySelectorAll('.task').length === 0) {
+                                        // Reload the page to show the empty state
+                                        window.location.reload();
+                                    }
+                                }
+                            })
+                            .catch(error => console.error('Error toggling task completion:',
+                            error));
+                    });
+                });
+            }
+
+            // Delete task functionality
+            const deleteModal = document.getElementById('deleteModal');
+            const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
+            const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+
+            document.querySelectorAll('.delete-task-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    taskToDeleteId = this.dataset.taskId;
+                    deleteModal.style.display = 'flex';
+                });
             });
-        });
-    }
 
-    // Delete task functionality
-    const deleteModal = document.getElementById('deleteModal');
-    const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
-    const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
-
-    document.querySelectorAll('.delete-task-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            taskToDeleteId = this.dataset.taskId;
-            deleteModal.style.display = 'flex';
-        });
-    });
-
-    cancelDeleteBtn.addEventListener('click', function() {
-        deleteModal.style.display = 'none';
-    });
-
-    confirmDeleteBtn.addEventListener('click', function() {
-        if (taskToDeleteId) {
-            fetch(`/tasks/${taskToDeleteId}`, {
-                method: 'DELETE',
-                headers: setupAjaxHeaders()
-            })
-            .then(() => {
+            cancelDeleteBtn.addEventListener('click', function() {
                 deleteModal.style.display = 'none';
-                // Remove the task element from DOM
-                document.querySelector(`.task[data-task-id="${taskToDeleteId}"]`).remove();
+            });
 
-                // Check if there are any tasks left
-                if (document.querySelectorAll('.task').length === 0) {
-                    // Reload the page to show the empty state
-                    window.location.reload();
+            confirmDeleteBtn.addEventListener('click', function() {
+                if (taskToDeleteId) {
+                    fetch(`/tasks/${taskToDeleteId}`, {
+                            method: 'DELETE',
+                            headers: setupAjaxHeaders()
+                        })
+                        .then(() => {
+                            deleteModal.style.display = 'none';
+                            // Remove the task element from DOM
+                            document.querySelector(`.task[data-task-id="${taskToDeleteId}"]`).remove();
+
+                            // Check if there are any tasks left
+                            if (document.querySelectorAll('.task').length === 0) {
+                                // Reload the page to show the empty state
+                                window.location.reload();
+                            }
+                        })
+                        .catch(error => console.error('Error deleting task:', error));
                 }
-            })
-            .catch(error => console.error('Error deleting task:', error));
-        }
-    });
+            });
 
-    // Initialize task checkbox listeners
-    setupCheckboxListeners();
-});
-</script>
+            function sortTasksByPriority() {
+                const taskList = document.getElementById('taskList');
+                const tasks = Array.from(taskList.querySelectorAll('.task'));
+
+                tasks.sort((a, b) => {
+                    return parseInt(b.dataset.priority) - parseInt(a.dataset.priority);
+                });
+
+                // Remove all tasks
+                tasks.forEach(task => task.remove());
+
+                // Add them back in the correct order
+                tasks.forEach(task => taskList.appendChild(task));
+            }
+
+            // Call after page loads
+            sortTasksByPriority();
+
+            // Initialize task checkbox listeners
+            setupCheckboxListeners();
+        });
+    </script>
 
 </body>
+
 </html>

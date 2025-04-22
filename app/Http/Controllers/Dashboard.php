@@ -6,7 +6,7 @@ use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class Home extends Controller
+class Dashboard extends Controller
 {
     public function index()
     {
@@ -31,12 +31,6 @@ class Home extends Controller
             $greeting = 'Good Night';
         }
 
-        // Get user's tasks
-        $tasks = Task::where('user_id', Auth::id())
-             ->orderBy('completed')
-             ->orderBy('start_datetime')
-             ->get();
-
-        return view('main.home', compact('currentDateTime', 'greeting', 'tasks'));
+        return view('main.dashboard', compact('currentDateTime', 'greeting'));
     }
 }

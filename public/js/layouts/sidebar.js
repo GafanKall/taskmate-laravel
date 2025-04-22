@@ -13,20 +13,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // Tentukan menu mana yang harus aktif berdasarkan path
-        if (currentPath.includes('/home') || currentPath === '/') {
+        if (currentPath.includes('/dashboard') || currentPath === '/') {
             document.querySelector('.nav-list li a .bx-home').parentElement.classList.add('active');
-        } else if (currentPath.includes('/personal')) {
-            document.querySelector('.nav-list li a .bx-user').parentElement.classList.add('active');
+        } else if (currentPath.includes('/board')) {
+            document.querySelector('.nav-list li a .bx-task').parentElement.classList.add('active');
         } else if (currentPath.includes('/completed')) {
             document.querySelector('.nav-list li a .bx-checkbox-checked').parentElement.classList.add('active');
-        } else if (currentPath.includes('/work')) {
-            document.querySelector('.nav-list li a .bx-briefcase-alt').parentElement.classList.add('active');
-        } else if (currentPath.includes('/health')) {
-            document.querySelector('.nav-list li a .bx-heart').parentElement.classList.add('active');
-        } else if (currentPath.includes('/education')) {
-            document.querySelector('.nav-list li a .bxs-school').parentElement.classList.add('active');
         } else if (currentPath.includes('/calendar')) {
             document.querySelector('.nav-list li a .bx-calendar').parentElement.classList.add('active');
+        } else if (currentPath.includes('/notes')) {
+            document.querySelector('.nav-list li a .bx-notepad').parentElement.classList.add('active');
         }
     }
 
@@ -47,7 +43,8 @@ document.addEventListener('DOMContentLoaded', function() {
         { name: 'Personal', url: '/personal', keywords: ['pribadi', 'personal tasks', 'tugas pribadi'] },
         { name: 'Work', url: '/work', keywords: ['kerja', 'pekerjaan', 'tugas kerja', 'office'] },
         { name: 'Education', url: '/education', keywords: ['pendidikan', 'belajar', 'sekolah', 'kuliah', 'study'] },
-        { name: 'Health', url: '/health', keywords: ['kesehatan', 'olahraga', 'fitness', 'workout'] }
+        { name: 'Health', url: '/health', keywords: ['kesehatan', 'olahraga', 'fitness', 'workout'] },
+        { name: 'Notes', url: '/notes', keywords: ['produktifitas', 'catatan' ] }
     ];
 
     // Elemen untuk menampilkan hasil pencarian - posisi di sebelah kanan

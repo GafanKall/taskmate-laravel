@@ -312,7 +312,7 @@ nav .sign-in:hover {
 
 /* Features Section */
 .features {
-    padding: 120px 0;
+    padding: 150px 0;
     background-color: var(--light-gray);
     text-align: center;
 }
@@ -413,7 +413,7 @@ nav .sign-in:hover {
 
 /* Testimonials Section */
 .testimonials {
-    padding: 150px 0;
+    padding: 170px 0;
     background-color: var(--light-gray);
     text-align: center;
 }
@@ -484,7 +484,7 @@ nav .sign-in:hover {
 
 /* FAQ Section */
 .faq-section {
-    padding: 160px 0;
+    padding: 180px 0;
     max-width: 800px;
     margin: 0 auto;
 }
