@@ -26,18 +26,10 @@ Route::post('/register', [AuthController::class, 'register'])->name('register.st
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'authenticate'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('auth/google', [App\Http\Controllers\AuthController::class, 'redirectToGoogle'])->name('login.google');
+Route::get('auth/google/callback', [App\Http\Controllers\AuthController::class, 'handleGoogleCallback']);
 
-// Route::middleware('auth')->group(function () {
-//     Route::get('/tasks', [TaskController::class, 'index']);
-//     Route::post('/tasks', [TaskController::class, 'store']);
-//     Route::get('/tasks/{id}', [TaskController::class, 'show']);
-//     Route::put('/tasks/{id}', [TaskController::class, 'update']);
-//     Route::delete('/tasks/{id}', [TaskController::class, 'destroy']);
-//     Route::patch('/tasks/{id}/toggle-complete', [TaskController::class, 'toggleComplete']);
-//     Route::get('/completed', [TaskController::class, 'completed'])->name('tasks.completed');
-// });
-
-
+// Event Calendar
 Route::middleware(['auth'])->group(function () {
     Route::get('/calendar', [Calendar::class, 'index'])->name('calendar');
     Route::get('/events', [Calendar::class, 'getEvents']);
@@ -47,6 +39,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/events/{event}', [Calendar::class, 'destroy']);
 });
 
+// Notes
 Route::middleware(['auth'])->group(function () {
     Route::get('/notes', [Notes::class, 'index'])->name('notes.index');
     Route::post('/notes', [Notes::class, 'store'])->name('notes.store');
@@ -55,6 +48,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/notes/{id}', [Notes::class, 'destroy'])->name('notes.destroy');
 });
 
+// Boards Tasks
 Route::middleware(['auth'])->group(function () {
     // Boards
     Route::get('/boards', [App\Http\Controllers\BoardController::class, 'index'])->name('boards.index');

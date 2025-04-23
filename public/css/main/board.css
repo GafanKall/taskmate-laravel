@@ -127,7 +127,7 @@ section::-webkit-scrollbar-thumb:hover {
 }
 
 .create-board-btn {
-    background-color: #4a6cf7;
+    background-color: var(--primary-color);
     color: white;
     border: none;
     padding: 8px 16px;
@@ -138,7 +138,7 @@ section::-webkit-scrollbar-thumb:hover {
 }
 
 .create-board-btn:hover {
-    background-color: #3a5ce5;
+    background-color: var(--hover-color);
 }
 
 .boards-container {
@@ -316,7 +316,7 @@ section::-webkit-scrollbar-thumb:hover {
 }
 
 .submit-btn {
-    background-color: #4a6cf7;
+    background-color: var(--primary-color);
     color: white;
     border: none;
     padding: 8px 16px;

@@ -13,7 +13,6 @@ class Task extends Model
         'user_id',
         'board_id',
         'name',
-        'category',
         'priority',
         'status',
         'start_date',
@@ -28,37 +27,7 @@ class Task extends Model
 
     protected $dates = ['start_date', 'end_date'];
 
-    protected $appends = ['category_emoji', 'category_name'];
-
-    public function getCategoryEmojiAttribute()
-    {
-        switch ($this->category) {
-            case 'personal':
-                return '👤';
-            case 'education':
-                return '📚';
-            case 'health':
-                return '❤️';
-            case 'work':
-            default:
-                return '🛠️';
-        }
-    }
-
-    public function getCategoryNameAttribute()
-    {
-        switch ($this->category) {
-            case 'personal':
-                return 'Personal';
-            case 'education':
-                return 'Education';
-            case 'health':
-                return 'Health';
-            case 'work':
-            default:
-                return 'Work';
-        }
-    }
+    // Remove the appends and the category getter methods
 
     public function user()
     {

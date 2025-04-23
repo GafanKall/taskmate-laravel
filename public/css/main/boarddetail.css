@@ -1,6 +1,6 @@
 :root {
-    --primary-color: #4361ee;
-    --primary-light: #4895ef;
+    --primary-color: #296294;
+    --primary-light: #3D90D7;
     --secondary-color: #e1e1e1;
     --accent-color: #ff9f1c;
     --success-color: #2ec4b6;
@@ -98,7 +98,7 @@ body {
 }
 
 .create-task-btn {
-    background: var(--primary-color);
+    background: var(--primary-light);
     color: white;
     border: none;
     padding: 0.75rem 1.5rem;
@@ -120,7 +120,7 @@ body {
 }
 
 .create-task-btn:hover {
-    background: #3451d1;
+    background: var(--primary-color);
     transform: translateY(-1px);
     box-shadow: 0 3px 6px rgba(67, 97, 238, 0.3);
 }
@@ -270,7 +270,7 @@ body {
     display: inline-flex;
     align-items: center;
     background-color: rgba(67, 97, 238, 0.08);
-    color: var(--primary-color);
+    color: var(--primary-light);
     font-weight: 500;
     padding: 0.2rem 0.6rem;
     border-radius: 20px;
@@ -335,7 +335,7 @@ body {
 
 .edit-task-btn:hover {
     background-color: rgba(67, 97, 238, 0.1);
-    color: var(--primary-color);
+    color: var(--primary-light);
 }
 
 .delete-task-btn:hover {
@@ -393,7 +393,7 @@ body {
 }
 
 .form-header, .modal-content h3 {
-    background: var(--primary-color);
+    background: var(--primary-light);
     color: white;
     padding: 1.25rem;
     display: flex;
@@ -479,7 +479,7 @@ form {
 }
 
 .submit-btn, .delete-confirm-btn {
-    background-color: var(--primary-color);
+    background-color: var(--primary-light);
     color: white;
     border: none;
     padding: 0.75rem 1.25rem;
@@ -499,7 +499,7 @@ form {
 }
 
 .submit-btn:hover {
-    background-color: #3451d1;
+    background-color: var(--primary-light);
 }
 
 .delete-confirm-btn:hover {
@@ -546,7 +546,7 @@ form {
 .back-to-boards-btn {
     display: inline-flex;
     align-items: center;
-    background-color: var(--primary-color);
+    background-color: var(--primary-light);
     color: white;
     padding: 0.5rem 1rem;
     border-radius: 8px;
@@ -564,7 +564,7 @@ form {
 }
 
 .back-to-boards-btn:hover {
-    background-color: #3451d1;
+    background-color: var(--primary-color);
     transform: translateY(-1px);
     box-shadow: 0 3px 6px rgba(67, 97, 238, 0.3);
 }

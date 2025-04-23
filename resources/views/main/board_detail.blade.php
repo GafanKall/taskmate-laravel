@@ -14,13 +14,12 @@
 
 <body>
     <header class="header-section">
-        <div class="text">TaskMate</div>
+        <div class="text"> {{ $currentBoard->name }}</div>
         <p>{{ $greeting }}, {{ $currentDateTime }}</p>
     </header>
 
     <section class="board-detail-section">
         <div class="board-header">
-            <h2>{{ $currentBoard->name }}</h2>
             <p class="board-description">{{ $currentBoard->description }}</p>
             <button class="create-task-btn">Add New Task</button>
             <a href="/board" class="back-to-boards-btn"><i class='bx bx-arrow-back'></i> Back to Boards</a>
@@ -38,8 +37,7 @@
                         <div class="task-card" data-id="{{ $task->id }}" data-priority="{{ $task->priority }}"
                             draggable="true">
                             <div class="task-header">
-                                <span class="task-category">{{ $task->category_emoji }}
-                                    {{ $task->category_name }}</span>
+                                <!-- Removed category span -->
                                 <div class="task-priority" data-value="{{ $task->priority }}">
                                     @for ($i = 0; $i < 3; $i++)
                                         <div class="priority-dot"></div>
@@ -83,8 +81,7 @@
                         <div class="task-card" data-id="{{ $task->id }}" data-priority="{{ $task->priority }}"
                             draggable="true">
                             <div class="task-header">
-                                <span class="task-category">{{ $task->category_emoji }}
-                                    {{ $task->category_name }}</span>
+                                <!-- Removed category span -->
                                 <div class="task-priority" data-value="{{ $task->priority }}">
                                     @for ($i = 0; $i < 3; $i++)
                                         <div class="priority-dot"></div>
@@ -128,8 +125,7 @@
                         <div class="task-card" data-id="{{ $task->id }}" data-priority="{{ $task->priority }}"
                             draggable="true">
                             <div class="task-header">
-                                <span class="task-category">{{ $task->category_emoji }}
-                                    {{ $task->category_name }}</span>
+                                <!-- Removed category span -->
                                 <div class="task-priority" data-value="{{ $task->priority }}">
                                     @for ($i = 0; $i < 3; $i++)
                                         <div class="priority-dot"></div>
@@ -181,15 +177,7 @@
                 <input type="text" id="taskTitle" name="title" placeholder="Enter task title" required>
             </div>
 
-            <div class="form-group">
-                <label for="taskCategory">Category</label>
-                <select id="taskCategory" name="category" required>
-                    <option value="work">🛠️ Work</option>
-                    <option value="personal">👤 Personal</option>
-                    <option value="education">📚 Education</option>
-                    <option value="health">❤️ Health</option>
-                </select>
-            </div>
+            <!-- Removed category form group -->
 
             <div class="form-group">
                 <label for="taskPriority">Priority</label>
@@ -309,7 +297,7 @@
                 document.querySelector('#taskForm .submit-btn').textContent = 'Create Task';
                 document.getElementById('taskIdInput').value = '';
                 document.getElementById('taskTitle').value = '';
-                document.getElementById('taskCategory').value = 'work';
+                // Removed category field reset
                 document.getElementById('taskPriority').value = '0';
                 document.getElementById('taskStatus').value = 'todo';
                 document.getElementById('taskStartDate').value = '';
@@ -332,7 +320,7 @@
                             document.querySelector('#taskForm .submit-btn').textContent = 'Update Task';
                             document.getElementById('taskIdInput').value = task.id;
                             document.getElementById('taskTitle').value = task.title;
-                            document.getElementById('taskCategory').value = task.category;
+                            // Removed category field update
                             document.getElementById('taskPriority').value = task.priority;
                             document.getElementById('taskStatus').value = task.status;
                             document.getElementById('taskStartDate').value = task.start_date || '';

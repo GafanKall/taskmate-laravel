@@ -12,8 +12,7 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255', // Change 'name' to 'title'
-            'category' => 'required|string|in:work,personal,education,health',
+            'title' => 'required|string|max:255',
             'priority' => 'required|integer|between:0,3',
             'status' => 'required|string|in:todo,in-progress,done',
             'board_id' => 'nullable|exists:boards,id',
@@ -24,8 +23,7 @@ class TaskController extends Controller
         $task = new Task();
         $task->user_id = Auth::id();
         $task->board_id = $validated['board_id'] ?? null;
-        $task->title = $validated['title']; // Change 'name' to 'title'
-        $task->category = $validated['category'];
+        $task->title = $validated['title'];
         $task->priority = $validated['priority'];
         $task->status = $validated['status'];
         $task->start_date = $validated['start_date'] ?? null;
@@ -41,19 +39,7 @@ class TaskController extends Controller
     public function edit($id)
     {
         $task = Task::where('user_id', Auth::id())->findOrFail($id);
-
-        // Make sure category information is available
-        $categoryMap = [
-            'work' => ['name' => 'Work', 'emoji' => '🛠️'],
-            'personal' => ['name' => 'Personal', 'emoji' => '👤'],
-            'education' => ['name' => 'Education', 'emoji' => '📚'],
-            'health' => ['name' => 'Health', 'emoji' => '❤️'],
-        ];
-
-        $categoryInfo = $categoryMap[$task->category] ?? ['name' => 'Other', 'emoji' => '📝'];
-        $task->category_name = $categoryInfo['name'];
-        $task->category_emoji = $categoryInfo['emoji'];
-
+        // Remove category mapping logic
         return response()->json($task);
     }
 
@@ -62,8 +48,7 @@ class TaskController extends Controller
         $task = Task::where('user_id', Auth::id())->findOrFail($id);
 
         $validated = $request->validate([
-            'title' => 'required|string|max:255', // Change 'name' to 'title'
-            'category' => 'required|string|in:work,personal,education,health',
+            'title' => 'required|string|max:255',
             'priority' => 'required|integer|between:0,3',
             'status' => 'required|string|in:todo,in-progress,done',
             'board_id' => 'nullable|exists:boards,id',
@@ -71,8 +56,8 @@ class TaskController extends Controller
             'end_date' => 'nullable|date|after_or_equal:start_date',
         ]);
 
-        $task->title = $validated['title']; // Change 'name' to 'title'
-        $task->category = $validated['category'];
+        $task->title = $validated['title'];
+        // Remove category assignment
         $task->priority = $validated['priority'];
         $task->status = $validated['status'];
         $task->board_id = $validated['board_id'] ?? $task->board_id;
