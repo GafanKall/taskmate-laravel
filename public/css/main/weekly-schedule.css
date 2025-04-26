@@ -1,0 +1,231 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+:root {
+    --transition: all 0.4s ease;
+    --primary-color: #11101d;
+    --secondary-color: #e1e1e1;
+    --text-color: #333;
+    --light-text: #6c6c6c;
+    --hover-color: #4b4b4b;
+    --form-bg: #ffffff;
+    --error-color: #ff4d4d;
+    --success-color: #0acd00;
+    --primary-blue: #3D90D7;
+    --dark-blue: #296294;
+}
+
+body {
+    background-color: var(--secondary-color);
+    display: flex;
+}
+
+.content-area {
+    margin-left: 320px;
+    width: 74vw;
+}
+
+.header-section {
+    background: var(--secondary-color);
+    padding: 20px 30px;
+}
+
+.header-section .text {
+    color: black;
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.header-section p {
+    color: var(--light-text);
+    font-size: 20px;
+}
+
+.schedule-section {
+    padding: 20px 30px;
+}
+
+.schedule-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.schedule-header h2 {
+    color: var(--text-color);
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.add-schedule-btn {
+    background-color: var(--primary-blue);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.add-schedule-btn:hover {
+    background-color: var(--dark-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.schedule-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.day-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.day-header {
+    background-color: var(--primary-blue);
+    color: white;
+    padding: 12px 15px;
+    font-weight: 500;
+}
+
+.day-content {
+    padding: 15px;
+    min-height: 150px;
+}
+
+.schedule-item {
+    background-color: #f9f9f9;
+    border-radius: 6px;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.schedule-input {
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 14px;
+    width: 100%;
+    color: var(--text-color);
+}
+
+.schedule-input::placeholder {
+    color: #aaa;
+}
+
+.delete-item {
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    display: none;
+}
+
+.schedule-item:hover .delete-item {
+    display: block;
+}
+
+.delete-item:hover {
+    color: var(--error-color);
+}
+
+.add-item-area {
+    cursor: text;
+    padding: 10px 15px;
+    border-radius: 6px;
+    border: 1px dashed #ddd;
+    color: #aaa;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+}
+
+.add-item-area:hover {
+    border-color: var(--primary-blue);
+    color: var(--primary-blue);
+}
+
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    color: #b1b1b1;
+}
+
+.empty-state i {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.empty-state p {
+    font-size: 14px;
+}
+
+.schedule-item {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    margin-bottom: 8px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.schedule-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+.schedule-times {
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.time-input {
+    flex: 1;
+    padding: 4px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.schedule-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 5px;
+}
+
+.delete-item {
+    cursor: pointer;
+    color: #dc3545;
+}

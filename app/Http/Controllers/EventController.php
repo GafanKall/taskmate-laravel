@@ -1,16 +1,14 @@
 <?php
 
-// app/Http/Controllers/CalendarController.phpj
 namespace App\Http\Controllers;
-
 use App\Models\Event;
 use Illuminate\Http\Request;
 
-class Calendar extends Controller
+class EventController extends Controller
 {
     public function index()
     {
-        return view('main.calendar');
+        return view('main.event');
     }
 
     public function getEvents()

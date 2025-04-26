@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Task;
-use Illuminate\Http\Request;
+use App\Models\Board;
+use App\Models\Event;
+use App\Models\Note;
 use Illuminate\Support\Facades\Auth;
 
 class Dashboard extends Controller
@@ -20,6 +22,19 @@ class Dashboard extends Controller
         // Set greeting based on time
         $hour = $now->hour;
         $greeting = '';
+        $currentDateTime = Carbon::now()->format('l, d F Y');
+        $upcomingTasks = Task::where('user_id', Auth::id())->upcoming()->limit(5)->get();
+        $boards = Board::withCount('tasks')->where('user_id', Auth::id())->limit(5)->get();
+        $todayEvents = Event::today()->where('user_id', Auth::id())->get();
+        $upcomingEvents = Event::upcoming()->where('user_id', Auth::id())->limit(5)->get();
+        $recentNotes = Note::where('user_id', Auth::id())->latest()->limit(3)->get();
+
+        $taskStats = [
+            'total' => Task::where('user_id', Auth::id())->count(),
+            'todo' => Task::where('user_id', Auth::id())->where('status', 'todo')->count(),
+            'in_progress' => Task::where('user_id', Auth::id())->where('status', 'in-progress')->count(),
+            'done' => Task::where('user_id', Auth::id())->where('status', 'done')->count(),
+        ];
 
         if ($hour >= 5 && $hour < 12) {
             $greeting = 'Good Morning';
@@ -31,6 +46,15 @@ class Dashboard extends Controller
             $greeting = 'Good Night';
         }
 
-        return view('main.dashboard', compact('currentDateTime', 'greeting'));
+        return view('main.dashboard', compact(
+            'greeting',
+            'currentDateTime',
+            'upcomingTasks',
+            'boards',
+            'todayEvents',
+            'upcomingEvents',
+            'recentNotes',
+            'taskStats' // Tambahkan variabel taskStats ke compact
+        ));
     }
 }

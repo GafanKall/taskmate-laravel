@@ -11,12 +11,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('../css/main/board.css') }}">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
-    <title>TaskMate Boards</title>
+    <title>TaskMate - Boards</title>
 </head>
 
 <body>
     <header class="header-section">
-        <div class="text">TaskMate</div>
+        <div class="text">Task Board</div>
         <p>Today, {{ now()->format('l, d F Y') }} </p>
     </header>
 

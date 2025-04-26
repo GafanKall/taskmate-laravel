@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="{{ asset('../css/main/calendar.css') }}">
+    <link rel="stylesheet" href="{{ asset('../css/main/event.css') }}">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.0/main.min.css' rel='stylesheet' />
     <title>TaskMate - Calendar</title>
@@ -17,7 +17,7 @@
 
 <body>
     <header class="header-section">
-        <div class="text">Calendar</div>
+        <div class="text">Event</div>
         <p>Today, {{ now()->format('l, j F Y') }} </p>
     </header>
 

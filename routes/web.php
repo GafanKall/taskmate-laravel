@@ -1,15 +1,17 @@
 <?php
 
 use App\Http\Controllers\Calendar;
+use App\Http\Controllers\Event;
 use App\Http\Controllers\Completed;
 use App\Http\Controllers\BoardController;
 use App\Http\Controllers\Dashboard;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\Notes;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Landing;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Home;
+use App\Http\Controllers\WeeklyScheduleController;
 
 // Landing
 Route::get('/', function () {
@@ -17,7 +19,6 @@ Route::get('/', function () {
 });
 Route::get('/landing', [Landing::class, 'index']);
 Route::get('/dashboard', [Dashboard::class, 'index'])->middleware('auth')->name('home');
-Route::get('/completed', [Completed::class, 'index']);
 Route::get('board', [BoardController::class, 'index']);
 
 // Auth
@@ -31,12 +32,12 @@ Route::get('auth/google/callback', [App\Http\Controllers\AuthController::class, 
 
 // Event Calendar
 Route::middleware(['auth'])->group(function () {
-    Route::get('/calendar', [Calendar::class, 'index'])->name('calendar');
-    Route::get('/events', [Calendar::class, 'getEvents']);
-    Route::get('/events/{event}', [Calendar::class, 'show']);
-    Route::post('/events', [Calendar::class, 'store']);
-    Route::put('/events/{event}', [Calendar::class, 'update']);
-    Route::delete('/events/{event}', [Calendar::class, 'destroy']);
+    Route::get('/event', [EventController::class, 'index'])->name('calendar');
+    Route::get('/events', [EventController::class, 'getEvents']);
+    Route::get('/events/{event}', [EventController::class, 'show']);
+    Route::post('/events', [EventController::class, 'store']);
+    Route::put('/events/{event}', [EventController::class, 'update']);
+    Route::delete('/events/{event}', [EventController::class, 'destroy']);
 });
 
 // Notes
@@ -65,3 +66,16 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/tasks/{task}', [TaskController::class, 'destroy']);
     Route::put('/tasks/{task}/status', [TaskController::class, 'updateStatus']);
 });
+
+
+Route::middleware(['auth'])->group(function () {
+    // Weekly Schedule routes
+    Route::get('/weekly-schedule', [WeeklyScheduleController::class, 'index'])->name('weekly-schedule.index');
+    Route::post('/weekly-schedule', [WeeklyScheduleController::class, 'store'])->name('weekly-schedule.store');
+    Route::get('/weekly-schedule/{weeklySchedule}/edit', [WeeklyScheduleController::class, 'edit'])->name('weekly-schedule.edit');
+    Route::patch('/weekly-schedule/{schedule}/update-field', [WeeklyScheduleController::class, 'updateField']);
+    Route::delete('/weekly-schedule/{weeklySchedule}', [WeeklyScheduleController::class, 'destroy'])->name('weekly-schedule.destroy');
+    Route::put('/weekly-schedule/{weeklySchedule}', [WeeklyScheduleController::class, 'update'])
+    ->name('weekly-schedule.update');
+});
+

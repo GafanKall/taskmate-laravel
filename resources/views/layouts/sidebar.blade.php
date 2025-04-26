@@ -32,21 +32,21 @@
                 </a>
             </li>
             <li>
-                <a href="/completed">
-                    <i class='bx bx-checkbox-checked'></i>
-                    <span class="links_name">Completed</span>
-                </a>
-            </li>
-            <li>
-                <a href="/calendar">
-                    <i class='bx bx-calendar'></i>
-                    <span class="links_name">Calendar</span>
+                <a href="/event">
+                    <i class='bx bx-calendar-event'></i>
+                    <span class="links_name">Event</span>
                 </a>
             </li>
             <li>
                 <a href="/notes">
                     <i class='bx bx-notepad'></i>
                     <span class="links_name">Notes</span>
+                </a>
+            </li>
+            <li>
+                <a href="/weekly-schedule">
+                    <i class='bx bx-calendar-week'></i>
+                    <span class="links_name">Weekly Schedule</span>
                 </a>
             </li>
             <li class="profile">

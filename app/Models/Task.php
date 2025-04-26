@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -37,5 +37,46 @@ class Task extends Model
     public function board()
     {
         return $this->belongsTo(Board::class);
+    }
+
+    public function getDuration()
+    {
+        if (!$this->start_date) {
+            return 0;
+        }
+
+        $start = strtotime($this->start_date);
+        $end = $this->end_date ? strtotime($this->end_date) : $start;
+
+        // Calculate days between dates (inclusive)
+        return round(($end - $start) / (60 * 60 * 24)) + 1;
+    }
+
+    public function isOverdue()
+    {
+        if (!$this->end_date || $this->status === 'done') {
+            return false;
+        }
+
+        return strtotime($this->end_date) < strtotime(date('Y-m-d')) && $this->status !== 'done';
+    }
+
+    public function getDaysLeft()
+    {
+        if (!$this->end_date) {
+            return null;
+        }
+
+        $today = strtotime(date('Y-m-d'));
+        $due = strtotime($this->end_date);
+
+        return round(($due - $today) / (60 * 60 * 24));
+    }
+
+    public function scopeUpcoming($query)
+    {
+        return $query->where('end_date', '>=', Carbon::now())
+                     ->where('status', '!=', 'done')
+                     ->orderBy('end_date', 'asc');
     }
 }
