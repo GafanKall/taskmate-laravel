@@ -18,7 +18,7 @@ Route::get('/', function () {
     return view('landing.index');
 });
 Route::get('/landing', [Landing::class, 'index']);
-Route::get('/dashboard', [Dashboard::class, 'index'])->middleware('auth')->name('home');
+Route::get('/dashboard', [Dashboard::class, 'index'])->middleware('auth')->name('dashboard');
 Route::get('board', [BoardController::class, 'index']);
 
 // Auth

@@ -8,10 +8,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    {{-- My CSS --}}
     <link rel="stylesheet" href="{{ asset('../css/main/event.css') }}">
+
+    {{-- My Icon --}}
+    <link rel="icon" type="image/png" href="{{ asset('../images/logo.png') }}">
+
+    {{-- Bx Icon CSS CDN --}}
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+
+    {{-- Full Calendar CDN Library --}}
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.0/main.min.css' rel='stylesheet' />
-    <title>TaskMate - Calendar</title>
+    <title>TaskMate - Event</title>
 
 </head>
 
@@ -24,10 +33,8 @@
     <section class="calendar-section">
         <div id="calendar"></div>
 
-        <!-- Modal Overlay -->
         <div class="modal-overlay" id="modalOverlay"></div>
 
-        <!-- Event Form -->
         <div class="form-container" id="eventForm">
             <div class="form-header">
                 <h3 id="formTitle">Add Event</h3>
@@ -93,7 +100,6 @@
             let currentEvent = null;
             let calendar = null;
 
-            // Setup AJAX headers
             function setupAjaxHeaders() {
                 return {
                     'Content-Type': 'application/json',
@@ -102,7 +108,6 @@
                 };
             }
 
-            // Initialize calendar
             function initCalendar() {
                 const calendarEl = document.getElementById('calendar');
                 calendar = new FullCalendar.Calendar(calendarEl, {
@@ -126,7 +131,6 @@
                         meridiem: 'short'
                     },
                     eventDidMount: function(info) {
-                        // Add category icon based on event's category
                         const categoryIcons = {
                             'work': '🛠️',
                             'personal': '👤',
@@ -148,7 +152,6 @@
                 calendar.render();
             }
 
-            // Form elements
             const eventForm = document.getElementById('eventForm');
             const modalOverlay = document.getElementById('modalOverlay');
             const eventCreateForm = document.getElementById('eventCreateForm');
@@ -163,20 +166,17 @@
                 hideForm();
             });
 
-            // Show event form
             function openEventForm(event = null, start = null, end = null) {
                 resetForm();
                 currentEvent = event;
 
                 if (event) {
-                    // Edit existing event
                     document.getElementById('eventId').value = event.id;
                     document.getElementById('eventTitle').value = event.title;
                     document.getElementById('eventDescription').value = event.extendedProps.description || '';
                     document.getElementById('eventCategory').value = event.extendedProps.category || '';
                     document.getElementById('eventColor').value = event.backgroundColor || '#3788d8';
 
-                    // Convert to local datetime format for the input
                     if (event.start) {
                         const startDate = new Date(event.start);
                         document.getElementById('eventStartDate').value = formatDateTimeForInput(startDate);
@@ -193,7 +193,6 @@
                     submitEventBtn.textContent = 'Update Event';
                     deleteEventBtn.style.display = 'block';
                 } else {
-                    // Create new event
                     if (start) {
                         document.getElementById('eventStartDate').value = formatDateTimeForInput(start);
                     }
@@ -211,7 +210,6 @@
                 modalOverlay.classList.add('show');
             }
 
-            // Format date for datetime-local input
             function formatDateTimeForInput(date) {
                 const d = new Date(date);
                 const year = d.getFullYear();
@@ -248,7 +246,7 @@
                         return response.json();
                     })
                     .then(event => {
-                        console.log("Fetched event:", event); // Add this for debugging
+                        console.log("Fetched event:", event);
 
                         const calendarEvent = {
                             id: event.id,
@@ -269,7 +267,6 @@
                     .catch(error => console.error('Error fetching event:', error));
             }
 
-            // Handle form submission
             eventCreateForm.addEventListener('submit', function(e) {
                 e.preventDefault();
 
@@ -285,7 +282,7 @@
                     all_day: document.getElementById('eventAllDay').checked
                 };
 
-                console.log("Submitting form with ID:", eventId); // Add for debugging
+                console.log("Submitting form with ID:", eventId);
                 console.log("Form data:", formData);
 
                 const url = eventId ? `/events/${eventId}` : '/events';
@@ -303,7 +300,7 @@
                         return response.json();
                     })
                     .then(data => {
-                        console.log("Response data:", data); // Add for debugging
+                        console.log("Response data:", data);
                         hideForm();
                         calendar.refetchEvents();
                     })
@@ -323,7 +320,7 @@
                         return;
                     }
 
-                    console.log("Deleting event with ID:", eventId); // Add for debugging
+                    console.log("Deleting event with ID:", eventId);
 
                     fetch(`/events/${eventId}`, {
                             method: 'DELETE',
@@ -336,7 +333,7 @@
                             return response.json();
                         })
                         .then(data => {
-                            console.log("Delete response:", data); // Add for debugging
+                            console.log("Delete response:", data);
                             hideForm();
                             calendar.refetchEvents();
                         })

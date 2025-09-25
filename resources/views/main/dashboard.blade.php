@@ -8,7 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    {{-- My Icon --}}
+    <link rel="icon" type="image/png" href="{{ asset('../images/logo.png') }}">
+
+    {{-- My CSS --}}
     <link rel="stylesheet" href="{{ asset('../css/main/dashboard.css') }}">
+
+    {{-- Bx Icon CSS CDN --}}
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <title>TaskMate - Dashboard</title>
 </head>
@@ -20,34 +27,59 @@
     </header>
 
     <section class="dashboard-section">
+        <!-- Month Filter -->
+        <div class="month-filter-container">
+            <form id="monthFilterForm" action="{{ route('dashboard') }}" method="GET" class="month-filter-form">
+                <div class="filter-group">
+                    <label for="month">Month:</label>
+                    <select name="month" id="month" onchange="this.form.submit()">
+                        @foreach ($months as $key => $monthName)
+                            <option value="{{ $key }}" {{ $selectedMonth == $key ? 'selected' : '' }}>
+                                {{ $monthName }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+            </form>
+        </div>
+
         <!-- Stats Overview -->
         <div class="stats-container">
             <div class="stat-card total">
                 <div class="stat-icon"><i class='bx bx-task'></i></div>
                 <div class="stat-info">
                     <h3>{{ $taskStats['total'] }}</h3>
-                    <p>Total Tasks</p>
+                    <p>Total Tasks <span
+                            class="filter-indication">({{ Carbon\Carbon::createFromDate($selectedYear, $selectedMonth, 1)->format('M Y') }})</span>
+                    </p>
                 </div>
             </div>
             <div class="stat-card todo">
                 <div class="stat-icon"><i class='bx bx-clipboard'></i></div>
                 <div class="stat-info">
                     <h3>{{ $taskStats['todo'] }}</h3>
-                    <p>To Do</p>
+                    <p>To Do <span
+                            class="filter-indication">({{ Carbon\Carbon::createFromDate($selectedYear, $selectedMonth, 1)->format('M Y') }})</span>
+                    </p>
                 </div>
             </div>
             <div class="stat-card progress">
                 <div class="stat-icon"><i class='bx bx-loader-circle'></i></div>
                 <div class="stat-info">
                     <h3>{{ $taskStats['in_progress'] }}</h3>
-                    <p>In Progress</p>
+                    <p>In Progress <span
+                            class="filter-indication">({{ Carbon\Carbon::createFromDate($selectedYear, $selectedMonth, 1)->format('M Y') }})</span>
+                    </p>
                 </div>
             </div>
             <div class="stat-card done">
                 <div class="stat-icon"><i class='bx bx-check-circle'></i></div>
                 <div class="stat-info">
                     <h3>{{ $taskStats['done'] }}</h3>
-                    <p>Completed</p>
+                    <p>Completed <span
+                            class="filter-indication">({{ Carbon\Carbon::createFromDate($selectedYear, $selectedMonth, 1)->format('M Y') }})</span>
+                    </p>
                 </div>
             </div>
         </div>
@@ -63,9 +95,9 @@
                         <a href="/board" class="view-all">View All <i class='bx bx-right-arrow-alt'></i></a>
                     </div>
                     <div class="card-content">
-                        @if(count($upcomingTasks) > 0)
+                        @if (count($upcomingTasks) > 0)
                             <ul class="task-list">
-                                @foreach($upcomingTasks as $task)
+                                @foreach ($upcomingTasks as $task)
                                     <li class="task-item priority-{{ $task->priority }}">
                                         <div class="task-details">
                                             <h4>{{ $task->title }}</h4>
@@ -95,9 +127,9 @@
                         <a href="/board" class="view-all">View All <i class='bx bx-right-arrow-alt'></i></a>
                     </div>
                     <div class="card-content">
-                        @if(count($boards) > 0)
+                        @if (count($boards) > 0)
                             <ul class="board-list">
-                                @foreach($boards as $board)
+                                @foreach ($boards as $board)
                                     <li class="board-item">
                                         <a href="/board/{{ $board->id }}">
                                             <div class="board-info">
@@ -125,12 +157,12 @@
                         <a href="/event" class="view-all">Event <i class='bx bx-right-arrow-alt'></i></a>
                     </div>
                     <div class="card-content">
-                        @if(count($todayEvents) > 0)
+                        @if (count($todayEvents) > 0)
                             <ul class="event-list">
-                                @foreach($todayEvents as $event)
+                                @foreach ($todayEvents as $event)
                                     <li class="event-item" style="border-left-color: {{ $event->color }};">
                                         <div class="event-time">
-                                            @if($event->all_day)
+                                            @if ($event->all_day)
                                                 <span>All day</span>
                                             @else
                                                 <span>{{ \Carbon\Carbon::parse($event->start_date)->format('H:i') }}</span>
@@ -138,21 +170,25 @@
                                         </div>
                                         <div class="event-details">
                                             <h4>{{ $event->title }}</h4>
-                                            @if($event->category)
+                                            @if ($event->category)
                                                 <div class="event-category">
                                                     @switch($event->category)
                                                         @case('work')
                                                             <span>🛠️ Work</span>
-                                                            @break
+                                                        @break
+
                                                         @case('personal')
                                                             <span>👤 Personal</span>
-                                                            @break
+                                                        @break
+
                                                         @case('education')
                                                             <span>📚 Education</span>
-                                                            @break
+                                                        @break
+
                                                         @case('health')
                                                             <span>❤️ Health</span>
-                                                            @break
+                                                        @break
+
                                                         @default
                                                             <span>{{ ucfirst($event->category) }}</span>
                                                     @endswitch
@@ -174,30 +210,35 @@
                         <h3><i class='bx bx-calendar-alt'></i> Upcoming Events</h3>
                     </div>
                     <div class="card-content">
-                        @if(count($upcomingEvents) > 0)
+                        @if (count($upcomingEvents) > 0)
                             <ul class="event-list">
-                                @foreach($upcomingEvents as $event)
+                                @foreach ($upcomingEvents as $event)
                                     <li class="event-item" style="border-left-color: {{ $event->color }};">
                                         <div class="event-time">
-                                            <span class="event-date">{{ \Carbon\Carbon::parse($event->start_date)->format('M d') }}</span>
+                                            <span
+                                                class="event-date">{{ \Carbon\Carbon::parse($event->start_date)->format('M d') }}</span>
                                         </div>
                                         <div class="event-details">
                                             <h4>{{ $event->title }}</h4>
-                                            @if($event->category)
+                                            @if ($event->category)
                                                 <div class="event-category">
                                                     @switch($event->category)
                                                         @case('work')
                                                             <span>🛠️ Work</span>
-                                                            @break
+                                                        @break
+
                                                         @case('personal')
                                                             <span>👤 Personal</span>
-                                                            @break
+                                                        @break
+
                                                         @case('education')
                                                             <span>📚 Education</span>
-                                                            @break
+                                                        @break
+
                                                         @case('health')
                                                             <span>❤️ Health</span>
-                                                            @break
+                                                        @break
+
                                                         @default
                                                             <span>{{ ucfirst($event->category) }}</span>
                                                     @endswitch
@@ -220,9 +261,9 @@
                         <a href="/notes" class="view-all">View All <i class='bx bx-right-arrow-alt'></i></a>
                     </div>
                     <div class="card-content">
-                        @if(count($recentNotes) > 0)
+                        @if (count($recentNotes) > 0)
                             <ul class="notes-list">
-                                @foreach($recentNotes as $note)
+                                @foreach ($recentNotes as $note)
                                     <li class="note-item">
                                         <a href="/notes" onclick="loadNote('{{ $note->id }}')">
                                             <h4>{{ $note->title }}</h4>
@@ -246,6 +287,17 @@
             // Store note ID in session storage to open it when redirected to notes page
             sessionStorage.setItem('openNoteId', noteId);
         }
+
+        // Reset filter script
+        document.addEventListener('DOMContentLoaded', function() {
+            const resetBtn = document.getElementById('resetFilter');
+            if (resetBtn) {
+                resetBtn.addEventListener('click', function() {
+                    window.location.href = "{{ route('dashboard') }}";
+                });
+            }
+        });
     </script>
 </body>
+
 </html>

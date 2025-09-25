@@ -7,7 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    {{-- Bx Icon CSS CDN --}}
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+
+    {{-- My Icon --}}
+    <link rel="icon" type="image/png" href="{{ asset('../images/logo.png') }}">
+
+    {{-- My CSS --}}
     <link rel="stylesheet" href="{{ asset('../css/main/weekly-schedule.css') }}">
     <title>TaskMate - Weekly Schedule</title>
     <style>

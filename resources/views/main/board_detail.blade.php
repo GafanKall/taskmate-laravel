@@ -7,7 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    {{-- My CSS --}}
     <link rel="stylesheet" href="{{ asset('../css/main/boarddetail.css') }}">
+    
+    {{-- My Icon --}}
+    <link rel="icon" type="image/png" href="{{ asset('../images/logo.png') }}">
+
+    {{-- Bx Icon CSS CDN --}}
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <title>{{ $currentBoard->name }} - TaskMate</title>
 </head>
@@ -37,7 +44,6 @@
                         <div class="task-card" data-id="{{ $task->id }}" data-priority="{{ $task->priority }}"
                             draggable="true">
                             <div class="task-header">
-                                <!-- Removed category span -->
                                 <div class="task-priority" data-value="{{ $task->priority }}">
                                     @for ($i = 0; $i < 3; $i++)
                                         <div class="priority-dot"></div>
@@ -81,7 +87,6 @@
                         <div class="task-card" data-id="{{ $task->id }}" data-priority="{{ $task->priority }}"
                             draggable="true">
                             <div class="task-header">
-                                <!-- Removed category span -->
                                 <div class="task-priority" data-value="{{ $task->priority }}">
                                     @for ($i = 0; $i < 3; $i++)
                                         <div class="priority-dot"></div>
@@ -125,7 +130,6 @@
                         <div class="task-card" data-id="{{ $task->id }}" data-priority="{{ $task->priority }}"
                             draggable="true">
                             <div class="task-header">
-                                <!-- Removed category span -->
                                 <div class="task-priority" data-value="{{ $task->priority }}">
                                     @for ($i = 0; $i < 3; $i++)
                                         <div class="priority-dot"></div>

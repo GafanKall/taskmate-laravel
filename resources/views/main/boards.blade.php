@@ -9,7 +9,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    {{-- My CSS --}}
     <link rel="stylesheet" href="{{ asset('../css/main/board.css') }}">
+
+    {{-- My Icon --}}
+    <link rel="icon" type="image/png" href="{{ asset('../images/logo.png') }}">
+
+    {{-- Bx Icon CSS CDN --}}
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <title>TaskMate - Boards</title>
 </head>
@@ -155,7 +162,7 @@
                 }
 
                 if (e.target.classList.contains('delete-board-btn') || e.target.closest(
-                    '.delete-board-btn')) {
+                        '.delete-board-btn')) {
                     const btn = e.target.classList.contains('delete-board-btn') ? e.target : e.target
                         .closest('.delete-board-btn');
                     currentBoardToDelete = btn.getAttribute('data-id');

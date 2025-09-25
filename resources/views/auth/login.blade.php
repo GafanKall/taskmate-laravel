@@ -9,6 +9,9 @@
     {{-- My CSS --}}
     <link rel="stylesheet" href="{{ asset('../css/auth/login.css') }}">
 
+    {{-- My Icon --}}
+    <link rel="icon" type="image/png" href="{{ asset('../images/logo.png') }}">
+
     {{-- Bx Icon CSS CDN --}}
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
@@ -51,39 +54,39 @@
 {{-- Bx Icon JS CDN --}}
 <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 <script>
-const togglePassword = document.querySelector('#togglePassword');
-const password = document.querySelector('#password');
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#password');
 
-// Sembunyikan ikon mata saat halaman dimuat (sebenarnya sudah disembunyikan di HTML)
-togglePassword.style.display = 'none';
+    // Sembunyikan ikon mata saat halaman dimuat (sebenarnya sudah disembunyikan di HTML)
+    togglePassword.style.display = 'none';
 
-// Fungsi untuk memeriksa apakah password kosong
-function checkPasswordValue() {
-    if (password.value.length > 0) {
-        togglePassword.style.display = 'block'; // Tampilkan ikon mata
-    } else {
-        togglePassword.style.display = 'none'; // Sembunyikan ikon mata
+    // Fungsi untuk memeriksa apakah password kosong
+    function checkPasswordValue() {
+        if (password.value.length > 0) {
+            togglePassword.style.display = 'block'; // Tampilkan ikon mata
+        } else {
+            togglePassword.style.display = 'none'; // Sembunyikan ikon mata
+        }
     }
-}
 
-// Dengarkan input pada field password
-password.addEventListener('input', checkPasswordValue);
+    // Dengarkan input pada field password
+    password.addEventListener('input', checkPasswordValue);
 
-// Toggle password visibility saat ikon diklik
-togglePassword.addEventListener('click', function() {
-    // Toggle tipe input antara password dan text
-    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-    password.setAttribute('type', type);
+    // Toggle password visibility saat ikon diklik
+    togglePassword.addEventListener('click', function() {
+        // Toggle tipe input antara password dan text
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
 
-    // Toggle antara ikon mata tertutup dan mata terbuka
-    if (type === 'text') {
-        this.classList.remove('bx-hide');
-        this.classList.add('bx-show');
-    } else {
-        this.classList.remove('bx-show');
-        this.classList.add('bx-hide');
-    }
-});
+        // Toggle antara ikon mata tertutup dan mata terbuka
+        if (type === 'text') {
+            this.classList.remove('bx-hide');
+            this.classList.add('bx-show');
+        } else {
+            this.classList.remove('bx-show');
+            this.classList.add('bx-hide');
+        }
+    });
 </script>
 
 </html>

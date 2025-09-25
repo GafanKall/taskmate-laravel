@@ -8,7 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    {{-- My CSS --}}
     <link rel="stylesheet" href="{{ asset('../css/main/notes.css') }}">
+
+    {{-- My Icon --}}
+    <link rel="icon" type="image/png" href="{{ asset('../images/logo.png') }}">
+
+    {{-- Bx Icon CSS CDN --}}
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <title>TaskMate - Notes</title>
 </head>
@@ -127,9 +134,6 @@
             }
 
             // New note button click
-            newNoteBtn.addEventListener('click', startNewNote);
-
-            // Handle save button in editor
             saveNoteBtn.addEventListener('click', function() {
                 const title = noteTitleInput.value || 'Untitled Note';
                 const content = noteContentInput.value;
@@ -141,6 +145,7 @@
                     // Create new note
                     createNote(title, content);
                 }
+                
             });
 
             // Function to load notes into the editor
@@ -242,6 +247,7 @@
                         console.error('Error creating note:', error);
                         alert('Failed to save note. Please try again.');
                     });
+
             }
 
             // Function to update an existing note

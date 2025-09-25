@@ -7,8 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>TaskMate</title>
-    <link rel="icon" type="image/png" href="{{ asset('../images/logo.png') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    {{-- My Icon --}}
+    <link rel="icon" type="image/png" href="{{ asset('../images/logo.png') }}">
 
     {{-- My Css --}}
     <link rel="stylesheet" href="{{ asset('../css/landing.css') }}">
@@ -36,9 +38,9 @@
                 <button class="sign-up">Sign Up</button>
             </a>
         </div>
-        <div class="mobile-menu-btn">
-            <i class="fas fa-bars"></i>
-        </div>
+    <button class="mobile-menu-btn">
+        <i class="fas fa-bars"></i>
+    </button>
     </nav>
 
     <!-- Mobile Menu -->
@@ -63,11 +65,12 @@
     <div class="section">
         <div class="description">
             <h1>Hey, Go-Getter! <br> Welcome to Task<span style="color: #39A5ED;">Mate</span></h1>
-            <p>Smash your to-dos, stay on top of your game, and get <br> things done effortlessly. TaskMate's got your back <br>
+            <p>Smash your to-dos, stay on top of your game, and get <br> things done effortlessly. TaskMate's got your
+                back <br>
                 for a smoother, smarter way to tackle your day!</p>
-                <a href="{{ Route('register') }}">
-                    <button>Get Started</button>
-                </a>
+            <a href="{{ Route('register') }}">
+                <button>Get Started</button>
+            </a>
         </div>
         <div class="image">
             <img src="{{ '../images/landingImage.png' }}" alt="TaskMate Hero Image">
@@ -82,9 +85,15 @@
             <h2>About Task<span style="color: #39A5ED;">Mate</span></h2>
             <div class="about-grid">
                 <div class="about-text">
-                    <p>TaskMate was born from a simple idea: managing your tasks shouldn't be a task itself. We've created a powerful yet intuitive platform that helps individuals and teams organize their work and achieve their goals with less stress and more efficiency.</p>
-                    <p>Founded in 2022, TaskMate has quickly grown to become a trusted productivity partner for thousands of users worldwide. Our mission is to transform how people approach their daily tasks and projects by providing smart tools that adapt to your unique workflow.</p>
-                    <p>Whether you're a busy professional juggling multiple projects, a student balancing assignments, or a team coordinating complex workflows, TaskMate scales to meet your needs while maintaining the simplicity you crave.</p>
+                    <p>TaskMate was born from a simple idea: managing your tasks shouldn't be a task itself. We've
+                        created a powerful yet intuitive platform that helps individuals and teams organize their work
+                        and achieve their goals with less stress and more efficiency.</p>
+                    <p>Founded in 2022, TaskMate has quickly grown to become a trusted productivity partner for
+                        thousands of users worldwide. Our mission is to transform how people approach their daily tasks
+                        and projects by providing smart tools that adapt to your unique workflow.</p>
+                    <p>Whether you're a busy professional juggling multiple projects, a student balancing assignments,
+                        or a team coordinating complex workflows, TaskMate scales to meet your needs while maintaining
+                        the simplicity you crave.</p>
                 </div>
                 <div class="about-stats">
                     <div class="stat-item">
@@ -125,7 +134,8 @@
                     <i class="fa-solid fa-note-sticky"></i>
                 </div>
                 <h3>Smart Notes</h3>
-                <p>Organize thoughts efficiently with intelligent categorization, searchable content, and seamless integration with your tasks and calendar.</p>
+                <p>Organize thoughts efficiently with intelligent categorization, searchable content, and seamless
+                    integration with your tasks and calendar.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">
@@ -205,7 +215,8 @@
                     <span class="faq-icon"><i class="fas fa-plus"></i></span>
                 </div>
                 <div class="faq-answer">
-                    <p>Yes! TaskMate offers a free plan with essential features. We also offer premium plans with advanced capabilities for power users.</p>
+                    <p>Yes! TaskMate offers a free plan with essential features. We also offer premium plans with
+                        advanced capabilities for power users.</p>
                 </div>
             </div>
             <div class="faq-item">
@@ -214,7 +225,8 @@
                     <span class="faq-icon"><i class="fas fa-plus"></i></span>
                 </div>
                 <div class="faq-answer">
-                    <p>Absolutely! TaskMate seamlessly integrates with popular tools like Google Calendar, Slack, Microsoft Teams, and more to create a unified productivity ecosystem.</p>
+                    <p>Absolutely! TaskMate seamlessly integrates with popular tools like Google Calendar, Slack,
+                        Microsoft Teams, and more to create a unified productivity ecosystem.</p>
                 </div>
             </div>
             <div class="faq-item">
@@ -223,7 +235,8 @@
                     <span class="faq-icon"><i class="fas fa-plus"></i></span>
                 </div>
                 <div class="faq-answer">
-                    <p>We take security seriously. All your data is encrypted and stored securely. We never share your information with third parties.</p>
+                    <p>We take security seriously. All your data is encrypted and stored securely. We never share your
+                        information with third parties.</p>
                 </div>
             </div>
         </div>
@@ -304,8 +317,9 @@
     </footer>
 
     <script>
-        // Simple JavaScript for FAQ toggle
+        // Combined JavaScript for Landing Page
         document.addEventListener('DOMContentLoaded', function() {
+            // FAQ functionality
             const faqItems = document.querySelectorAll('.faq-item');
 
             faqItems.forEach(item => {
@@ -328,177 +342,226 @@
                 });
             });
 
-            // Mobile menu toggle
+            // Mobile menu toggle - Updated for FontAwesome icons
             const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
             const mobileMenu = document.querySelector('.mobile-menu');
 
-            mobileMenuBtn.addEventListener('click', () => {
-                mobileMenu.classList.toggle('active');
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('active');
 
-                // Change icon
-                const icon = mobileMenuBtn.querySelector('i');
-                if (icon.classList.contains('fa-bars')) {
-                    icon.classList.remove('fa-bars');
-                    icon.classList.add('fa-times');
-                } else {
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
-                }
-            });
-
-            // Close mobile menu when clicking on links
-            const mobileLinks = document.querySelectorAll('.mobile-menu a');
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.remove('active');
+                    // Change icon for FontAwesome or fallback to text
                     const icon = mobileMenuBtn.querySelector('i');
-                    icon.classList.remove('fa-times');
-                    icon.classList.add('fa-bars');
+                    if (icon) {
+                        // Using FontAwesome icons
+                        if (icon.classList.contains('fa-bars')) {
+                            icon.classList.remove('fa-bars');
+                            icon.classList.add('fa-times');
+                        } else {
+                            icon.classList.remove('fa-times');
+                            icon.classList.add('fa-bars');
+                        }
+                    } else {
+                        // Fallback to text icons
+                        if (mobileMenu.classList.contains('active')) {
+                            mobileMenuBtn.innerHTML = '✕';
+                        } else {
+                            mobileMenuBtn.innerHTML = '☰';
+                        }
+                    }
                 });
-            });
-        });
-        document.addEventListener('DOMContentLoaded', function() {
-        // Fungsi untuk cek apakah elemen sudah visible dalam viewport
-        function isElementInViewport(el) {
-            const rect = el.getBoundingClientRect();
-            return (
-                rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.85
-            );
-        }
 
-        // Terapkan kelas 'animate' pada elemen yang akan dianimasikan
-        const sections = document.querySelectorAll('.about-section, .features, .how-it-works, .testimonials, .faq-section, .newsletter');
-        const cards = document.querySelectorAll('.feature-card, .step, .testimonial-card, .faq-item, .stat-item');
+                // Close mobile menu when clicking on links
+                const mobileLinks = document.querySelectorAll('.mobile-menu a');
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.remove('active');
+                        const icon = mobileMenuBtn.querySelector('i');
+                        if (icon) {
+                            icon.classList.remove('fa-times');
+                            icon.classList.add('fa-bars');
+                        } else {
+                            mobileMenuBtn.innerHTML = '☰';
+                        }
+                    });
+                });
 
-        // Fungsi untuk menganimasikan elemen
-        function animateOnScroll() {
-            // Animasi untuk seksi
-            sections.forEach(section => {
-                if (isElementInViewport(section) && !section.classList.contains('active')) {
-                    section.classList.add('active');
+                // Close mobile menu when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!mobileMenuBtn.contains(event.target) && !mobileMenu.contains(event.target)) {
+                        mobileMenu.classList.remove('active');
+                        const icon = mobileMenuBtn.querySelector('i');
+                        if (icon) {
+                            icon.classList.remove('fa-times');
+                            icon.classList.add('fa-bars');
+                        } else {
+                            mobileMenuBtn.innerHTML = '☰';
+                        }
+                    }
+                });
 
-                    // Animasi untuk heading dalam seksi
-                    const heading = section.querySelector('h2');
-                    if (heading) {
-                        heading.classList.add('active');
+                // Handle window resize
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768) {
+                        mobileMenu.classList.remove('active');
+                        const icon = mobileMenuBtn.querySelector('i');
+                        if (icon) {
+                            icon.classList.remove('fa-times');
+                            icon.classList.add('fa-bars');
+                        } else {
+                            mobileMenuBtn.innerHTML = '☰';
+                        }
+                    }
+                });
+            }
+
+            // Animation functionality
+            // Fungsi untuk cek apakah elemen sudah visible dalam viewport
+            function isElementInViewport(el) {
+                const rect = el.getBoundingClientRect();
+                return (
+                    rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.85
+                );
+            }
+
+            // Terapkan kelas 'animate' pada elemen yang akan dianimasikan
+            const sections = document.querySelectorAll(
+                '.about-section, .features, .how-it-works, .testimonials, .faq-section, .newsletter');
+            const cards = document.querySelectorAll(
+                '.feature-card, .step, .testimonial-card, .faq-item, .stat-item');
+
+            // Fungsi untuk menganimasikan elemen
+            function animateOnScroll() {
+                // Animasi untuk seksi
+                sections.forEach(section => {
+                    if (isElementInViewport(section) && !section.classList.contains('active')) {
+                        section.classList.add('active');
+
+                        // Animasi untuk heading dalam seksi
+                        const heading = section.querySelector('h2');
+                        if (heading) {
+                            heading.classList.add('active');
+                        }
+
+                        // Animasi untuk paragraf dalam seksi
+                        const paragraphs = section.querySelectorAll('p');
+                        paragraphs.forEach((p, index) => {
+                            setTimeout(() => {
+                                p.classList.add('active');
+                            }, 100 * (index + 1));
+                        });
+                    }
+                });
+
+                // Animasi untuk card dan elemen lainnya
+                cards.forEach(card => {
+                    if (isElementInViewport(card) && !card.classList.contains('active')) {
+                        card.classList.add('active');
+                    }
+                });
+
+                // Pastikan section utama terlihat
+                const mainSection = document.querySelector('.section');
+                if (mainSection) {
+                    mainSection.querySelectorAll('.animate').forEach(el => {
+                        el.classList.add('active');
+                    });
+                    mainSection.querySelectorAll('.fade-in-left').forEach(el => {
+                        el.classList.add('active');
+                    });
+                    mainSection.querySelectorAll('.fade-in-right').forEach(el => {
+                        el.classList.add('active');
+                    });
+                }
+            }
+
+            // Terapkan kelas untuk elemen yang akan dianimasikan
+            function setupAnimations() {
+                // HERO SECTION - Atur sebagai visible sejak awal
+                const heroSection = document.querySelector('.section');
+                if (heroSection) {
+                    heroSection.classList.add('initial-visible');
+
+                    // Hero text - tambahkan initial-visible
+                    const description = heroSection.querySelector('.description');
+                    if (description) {
+                        description.classList.add('fade-in-left', 'initial-visible');
+                        description.querySelectorAll('h1, p').forEach(el => {
+                            el.classList.add('initial-visible');
+                        });
                     }
 
-                    // Animasi untuk paragraf dalam seksi
-                    const paragraphs = section.querySelectorAll('p');
-                    paragraphs.forEach((p, index) => {
-                        setTimeout(() => {
-                            p.classList.add('active');
-                        }, 100 * (index + 1));
-                    });
+                    // Hero image - tambahkan initial-visible
+                    const image = heroSection.querySelector('.image img');
+                    if (image) {
+                        image.classList.add('fade-in-right', 'initial-visible');
+                    }
                 }
-            });
 
-            // Animasi untuk card dan elemen lainnya
-            cards.forEach(card => {
-                if (isElementInViewport(card) && !card.classList.contains('active')) {
-                    card.classList.add('active');
+                // Section headings
+                document.querySelectorAll(
+                    '.about-section h2, .features h2, .how-it-works h2, .testimonials h2, .faq-section h2, .newsletter h2'
+                ).forEach(el => {
+                    el.classList.add('animate');
+                });
+
+                // ABOUT SECTION - Pastikan paragrafnya ada animasi
+                const aboutSection = document.querySelector('.about-section');
+                if (aboutSection) {
+                    // About text paragraphs - Penting untuk konten yang hilang
+                    const aboutText = aboutSection.querySelector('.about-text');
+                    if (aboutText) {
+                        aboutText.querySelectorAll('p').forEach((p, index) => {
+                            p.classList.add('fade-in-left', `delay-${index + 1}`);
+                            p.style.display = 'block'; // Pastikan terlihat
+                        });
+                    }
                 }
-            });
 
-            // Pastikan section utama terlihat
+                // Feature cards
+                document.querySelectorAll('.feature-card').forEach((card, index) => {
+                    card.classList.add('animate', `delay-${index + 1}`);
+                });
+
+                // Steps
+                document.querySelectorAll('.step').forEach((step, index) => {
+                    step.classList.add('animate', `delay-${index + 1}`);
+                });
+
+                // Testimonials
+                document.querySelectorAll('.testimonial-card').forEach((card, index) => {
+                    card.classList.add('animate', `delay-${index + 1}`);
+                });
+
+                // FAQ items
+                document.querySelectorAll('.faq-item').forEach((item, index) => {
+                    item.classList.add('animate', `delay-${index + 1}`);
+                });
+
+                // Stats
+                document.querySelectorAll('.stat-item').forEach((stat, index) => {
+                    stat.classList.add('zoom-in', `delay-${index + 1}`);
+                });
+            }
+
+            // Setup animations
+            setupAnimations();
+
+            // Run on load - PENTING: Pastikan hero section terlihat segera
             const mainSection = document.querySelector('.section');
             if (mainSection) {
-                mainSection.querySelectorAll('.animate').forEach(el => {
-                    el.classList.add('active');
-                });
-                mainSection.querySelectorAll('.fade-in-left').forEach(el => {
-                    el.classList.add('active');
-                });
-                mainSection.querySelectorAll('.fade-in-right').forEach(el => {
+                mainSection.classList.add('active');
+                mainSection.querySelectorAll('.animate, .fade-in-left, .fade-in-right').forEach(el => {
                     el.classList.add('active');
                 });
             }
-        }
 
-        // Terapkan kelas untuk elemen yang akan dianimasikan
-        function setupAnimations() {
-            // HERO SECTION - Atur sebagai visible sejak awal
-            const heroSection = document.querySelector('.section');
-            if (heroSection) {
-                heroSection.classList.add('initial-visible');
+            // Jalankan animasi untuk elemen yang sudah terlihat
+            animateOnScroll();
 
-                // Hero text - tambahkan initial-visible
-                const description = heroSection.querySelector('.description');
-                if (description) {
-                    description.classList.add('fade-in-left', 'initial-visible');
-                    description.querySelectorAll('h1, p').forEach(el => {
-                        el.classList.add('initial-visible');
-                    });
-                }
-
-                // Hero image - tambahkan initial-visible
-                const image = heroSection.querySelector('.image img');
-                if (image) {
-                    image.classList.add('fade-in-right', 'initial-visible');
-                }
-            }
-
-            // Section headings
-            document.querySelectorAll('.about-section h2, .features h2, .how-it-works h2, .testimonials h2, .faq-section h2, .newsletter h2').forEach(el => {
-                el.classList.add('animate');
-            });
-
-            // ABOUT SECTION - Pastikan paragrafnya ada animasi
-            const aboutSection = document.querySelector('.about-section');
-            if (aboutSection) {
-                // About text paragraphs - Penting untuk konten yang hilang
-                const aboutText = aboutSection.querySelector('.about-text');
-                if (aboutText) {
-                    aboutText.querySelectorAll('p').forEach((p, index) => {
-                        p.classList.add('fade-in-left', `delay-${index + 1}`);
-                        p.style.display = 'block'; // Pastikan terlihat
-                    });
-                }
-            }
-
-            // Feature cards
-            document.querySelectorAll('.feature-card').forEach((card, index) => {
-                card.classList.add('animate', `delay-${index + 1}`);
-            });
-
-            // Steps
-            document.querySelectorAll('.step').forEach((step, index) => {
-                step.classList.add('animate', `delay-${index + 1}`);
-            });
-
-            // Testimonials
-            document.querySelectorAll('.testimonial-card').forEach((card, index) => {
-                card.classList.add('animate', `delay-${index + 1}`);
-            });
-
-            // FAQ items
-            document.querySelectorAll('.faq-item').forEach((item, index) => {
-                item.classList.add('animate', `delay-${index + 1}`);
-            });
-
-            // Stats
-            document.querySelectorAll('.stat-item').forEach((stat, index) => {
-                stat.classList.add('zoom-in', `delay-${index + 1}`);
-            });
-        }
-
-        // Setup animations
-        setupAnimations();
-
-        // Run on load - PENTING: Pastikan hero section terlihat segera
-        document.querySelector('.section')?.classList.add('active');
-        document.querySelectorAll('.section .animate, .section .fade-in-left, .section .fade-in-right').forEach(el => {
-            el.classList.add('active');
+            // Run on scroll
+            window.addEventListener('scroll', animateOnScroll);
         });
-
-        // Jalankan animasi untuk elemen yang sudah terlihat
-        animateOnScroll();
-
-        // Run on scroll
-        window.addEventListener('scroll', animateOnScroll);
-    });
-
-
     </script>
 </body>
 

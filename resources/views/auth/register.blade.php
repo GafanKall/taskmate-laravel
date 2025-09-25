@@ -9,6 +9,9 @@
     {{-- My CSS --}}
     <link rel="stylesheet" href="{{ asset('../css/auth/register.css') }}">
 
+    {{-- My Icon --}}
+    <link rel="icon" type="image/png" href="{{ asset('../images/logo.png') }}">
+
     {{-- Bx Icon CSS CDN --}}
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
