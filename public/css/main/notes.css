@@ -13,7 +13,7 @@
     --secondary-color: #e1e1e1;
     --text-color: #333;
     --light-text: #6c6c6c;
-    --hover-color:  #3D90D7;
+    --hover-color: #3D90D7;
     --form-bg: #ffffff;
     --error-color: #ff4d4d;
     --success-color: #0acd00;
@@ -33,7 +33,15 @@ body {
     top: 0;
     left: 250px;
     width: calc(100% - 250px);
-    z-index: 2;
+    z-index: 1000;
+    padding-right: 40px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
 }
 
 .header-section .text {
@@ -41,13 +49,13 @@ body {
     color: black;
     font-size: 25px;
     font-weight: 500;
-    margin: 18px 18px 0 100px;
+    margin: 0 0 0 100px;
 }
 
 .header-section p {
     color: var(--light-text);
     font-size: 20px;
-    margin: 0 18px 18px 100px;
+    margin: 0 0 0 100px;
 }
 
 section {

@@ -23,8 +23,15 @@
 
 <body>
     <header class="header-section">
-        <div class="text">Task Board</div>
-        <p>Today, {{ now()->format('l, d F Y') }} </p>
+        <div class="header-container">
+            <div class="header-left">
+                <div class="text">Task Board</div>
+                <p>Today, {{ now()->format('l, d F Y') }}</p>
+            </div>
+            <div class="header-right">
+                @include('partials.notification')
+            </div>
+        </div>
     </header>
 
     <section class="boards-section">

@@ -21,8 +21,15 @@
 
 <body>
     <header class="header-section">
-        <div class="text"> {{ $currentBoard->name }}</div>
-        <p>{{ $greeting }}, {{ $currentDateTime }}</p>
+        <div class="header-container">
+            <div class="header-left">
+                <div class="text">{{ $currentBoard->name }}</div>
+                <p>{{ $greeting }}, {{ $currentDateTime }}</p>
+            </div>
+            <div class="header-right">
+                @include('partials.notification')
+            </div>
+        </div>
     </header>
 
     <section class="board-detail-section">
@@ -51,13 +58,16 @@
                                 </div>
                             </div>
                             <div class="task-title">{{ $task->title }}</div>
-                            @if ($task->start_date || $task->end_date)
+                            @if ($task->start_date || $task->end_date || $task->completed_at)
                                 <div class="task-dates">
                                     @if ($task->start_date)
-                                        <span>Start: {{ date('M d', strtotime($task->start_date)) }}</span>
+                                        <span title="Start Date">🏁 {{ $task->start_date->format('d M y, H:i') }}</span>
+                                    @endif
+                                    @if ($task->status === 'done' && $task->completed_at)
+                                        <span title="Finished Date" style="color: var(--success-color); font-weight: 600;">✅ {{ $task->completed_at->format('d M y, H:i') }}</span>
                                     @endif
                                     @if ($task->end_date)
-                                        <span>Due: {{ date('M d', strtotime($task->end_date)) }}</span>
+                                        <span title="Due Date">⏰ {{ $task->end_date->format('d M y, H:i') }}</span>
                                     @endif
                                 </div>
                             @endif
@@ -94,13 +104,16 @@
                                 </div>
                             </div>
                             <div class="task-title">{{ $task->title }}</div>
-                            @if ($task->start_date || $task->end_date)
+                            @if ($task->start_date || $task->end_date || $task->completed_at)
                                 <div class="task-dates">
                                     @if ($task->start_date)
-                                        <span>Start: {{ date('M d', strtotime($task->start_date)) }}</span>
+                                        <span title="Start Date">🏁 {{ $task->start_date->format('d M y, H:i') }}</span>
+                                    @endif
+                                    @if ($task->status === 'done' && $task->completed_at)
+                                        <span title="Finished Date" style="color: var(--success-color); font-weight: 600;">✅ {{ $task->completed_at->format('d M y, H:i') }}</span>
                                     @endif
                                     @if ($task->end_date)
-                                        <span>Due: {{ date('M d', strtotime($task->end_date)) }}</span>
+                                        <span title="Due Date">⏰ {{ $task->end_date->format('d M y, H:i') }}</span>
                                     @endif
                                 </div>
                             @endif
@@ -137,13 +150,16 @@
                                 </div>
                             </div>
                             <div class="task-title">{{ $task->title }}</div>
-                            @if ($task->start_date || $task->end_date)
+                            @if ($task->start_date || $task->end_date || $task->completed_at)
                                 <div class="task-dates">
                                     @if ($task->start_date)
-                                        <span>Start: {{ date('M d', strtotime($task->start_date)) }}</span>
+                                        <span title="Start Date">🏁 {{ $task->start_date->format('d M y, H:i') }}</span>
+                                    @endif
+                                    @if ($task->status === 'done' && $task->completed_at)
+                                        <span title="Finished Date" style="color: var(--success-color); font-weight: 600;">✅ {{ $task->completed_at->format('d M y, H:i') }}</span>
                                     @endif
                                     @if ($task->end_date)
-                                        <span>Due: {{ date('M d', strtotime($task->end_date)) }}</span>
+                                        <span title="Due Date">⏰ {{ $task->end_date->format('d M y, H:i') }}</span>
                                     @endif
                                 </div>
                             @endif
@@ -203,13 +219,13 @@
             </div>
 
             <div class="form-group">
-                <label for="taskStartDate">Start Date (Optional)</label>
-                <input type="date" id="taskStartDate" name="start_date">
+                <label for="taskStartDate">Start Date & Time (Optional)</label>
+                <input type="datetime-local" id="taskStartDate" name="start_date">
             </div>
 
             <div class="form-group">
-                <label for="taskEndDate">End Date (Optional)</label>
-                <input type="date" id="taskEndDate" name="end_date">
+                <label for="taskEndDate">End Date & Time (Optional)</label>
+                <input type="datetime-local" id="taskEndDate" name="end_date">
             </div>
 
             <div class="form-actions">
@@ -295,6 +311,14 @@
                 });
             }
 
+            // Helper to get local ISO string for datetime-local
+            function getLocalISOString() {
+                const now = new Date();
+                const offset = now.getTimezoneOffset();
+                const localNow = new Date(now.getTime() - (offset * 60 * 1000));
+                return localNow.toISOString().slice(0, 16);
+            }
+
             // Event Listeners for Modal Controls
             createTaskBtn.addEventListener('click', function() {
                 document.querySelector('#taskForm h3').textContent = 'Create New Task';
@@ -304,7 +328,7 @@
                 // Removed category field reset
                 document.getElementById('taskPriority').value = '0';
                 document.getElementById('taskStatus').value = 'todo';
-                document.getElementById('taskStartDate').value = '';
+                document.getElementById('taskStartDate').value = getLocalISOString();
                 document.getElementById('taskEndDate').value = '';
                 openModal(taskForm);
             });

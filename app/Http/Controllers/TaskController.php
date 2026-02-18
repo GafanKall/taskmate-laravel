@@ -28,6 +28,11 @@ class TaskController extends Controller
         $task->status = $validated['status'];
         $task->start_date = $validated['start_date'] ?? null;
         $task->end_date = $validated['end_date'] ?? null;
+        
+        if ($task->status === 'done') {
+            $task->completed_at = now();
+        }
+        
         $task->save();
 
         return response()->json([
@@ -63,6 +68,13 @@ class TaskController extends Controller
         $task->board_id = $validated['board_id'] ?? $task->board_id;
         $task->start_date = $validated['start_date'] ?? $task->start_date;
         $task->end_date = $validated['end_date'] ?? $task->end_date;
+
+        if ($task->status === 'done' && !$task->completed_at) {
+            $task->completed_at = now();
+        } elseif ($task->status !== 'done') {
+            $task->completed_at = null;
+        }
+
         $task->save();
 
         return response()->json([
@@ -80,6 +92,13 @@ class TaskController extends Controller
         ]);
 
         $task->status = $request->status;
+        
+        if ($task->status === 'done' && !$task->completed_at) {
+            $task->completed_at = now();
+        } elseif ($task->status !== 'done') {
+            $task->completed_at = null;
+        }
+
         $task->save();
 
         return response()->json([

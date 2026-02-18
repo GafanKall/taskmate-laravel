@@ -13,6 +13,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         //
     })
+    ->withSchedule(function ($schedule) {
+        $schedule->command('notifications:check-deadlines')->everyMinute();
+    })
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();

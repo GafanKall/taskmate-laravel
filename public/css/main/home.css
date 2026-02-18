@@ -30,7 +30,7 @@ body {
     top: 0;
     left: 250px;
     width: calc(100% - 250px);
-    z-index: 2;
+    z-index: 1000;
 }
 
 .header-section .text {
@@ -252,7 +252,10 @@ section::-webkit-scrollbar-thumb:hover {
     color: var(--success-color);
 }
 
-.start-date, .start-time, .end-time, .end-date {
+.start-date,
+.start-time,
+.end-time,
+.end-date {
     font-size: 0.85rem;
 }
 
@@ -323,8 +326,10 @@ section::-webkit-scrollbar-thumb:hover {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
-    z-index: 9; /* Just below the form */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent black */
+    z-index: 9;
+    /* Just below the form */
     display: none;
 }
 
@@ -339,7 +344,7 @@ section::-webkit-scrollbar-thumb:hover {
     padding: 20px;
     width: 600px;
     max-width: 90%;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     display: none;
     opacity: 0;
     transition: all 0.3s ease;
@@ -461,7 +466,7 @@ section::-webkit-scrollbar-thumb:hover {
     right: 0;
     background-color: #fff;
     min-width: 120px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     z-index: 1;
     border-radius: 4px;
 }
@@ -585,7 +590,7 @@ section::-webkit-scrollbar-thumb:hover {
     margin-top: 70px;
     color: #666;
     font-size: 16px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .empty-task-message p {
@@ -599,7 +604,7 @@ section::-webkit-scrollbar-thumb:hover {
     border-radius: 8px;
     margin-top: 20px;
     color: #666;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -639,7 +644,7 @@ section::-webkit-scrollbar-thumb:hover {
 .go-home-btn:hover {
     background-color: var(--hover-color);
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .go-home-btn i {

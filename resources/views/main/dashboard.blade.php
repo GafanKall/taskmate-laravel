@@ -22,8 +22,15 @@
 
 <body>
     <header class="header-section">
-        <div class="text">{{ $greeting }}, {{ Auth::user()->name }}!👋</div>
-        <p>Today, {{ $currentDateTime }} </p>
+        <div class="header-container">
+            <div class="header-left">
+                <div class="text">{{ $greeting }}, {{ Auth::user()->name }}!👋</div>
+                <p>Today, {{ $currentDateTime }} </p>
+            </div>
+            <div class="header-right">
+                @include('partials.notification')
+            </div>
+        </div>
     </header>
 
     <section class="dashboard-section">

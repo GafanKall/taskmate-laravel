@@ -8,7 +8,7 @@
     --text-primary: #212529;
     --text-secondary: #6c757d;
     --bg-light: #f5f7fa;
-    --card-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     --hover-transition: all 0.25s ease;
 }
 
@@ -30,8 +30,16 @@ body {
     height: 14vh;
     top: 0;
     left: 250px;
-    width: 60%;
-    z-index: 2;
+    width: calc(100% - 250px);
+    z-index: 1000;
+    padding-right: 40px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
 }
 
 .header-section .text {
@@ -39,13 +47,13 @@ body {
     color: black;
     font-size: 25px;
     font-weight: 500;
-    margin: 18px 18px 0 100px;
+    margin: 0 0 0 100px;
 }
 
 .header-section p {
     color: #6c6c6c;
     font-size: 20px;
-    margin: 0 18px 18px 100px;
+    margin: 0 0 0 100px;
 }
 
 /* Board Section */
@@ -64,12 +72,12 @@ body {
 }
 
 .board-detail-section::-webkit-scrollbar-track {
-    background: rgba(0,0,0,0.02);
+    background: rgba(0, 0, 0, 0.02);
     border-radius: 10px;
 }
 
 .board-detail-section::-webkit-scrollbar-thumb {
-    background: rgba(0,0,0,0.08);
+    background: rgba(0, 0, 0, 0.08);
     border-radius: 10px;
 }
 
@@ -81,7 +89,7 @@ body {
     align-items: center;
     padding: 0 0 10px 0;
     gap: 10px;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .board-header h2 {
@@ -138,12 +146,12 @@ body {
 }
 
 .kanban-board::-webkit-scrollbar-track {
-    background: rgba(0,0,0,0.02);
+    background: rgba(0, 0, 0, 0.02);
     border-radius: 10px;
 }
 
 .kanban-board::-webkit-scrollbar-thumb {
-    background: rgba(0,0,0,0.08);
+    background: rgba(0, 0, 0, 0.08);
     border-radius: 10px;
 }
 
@@ -167,7 +175,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid rgba(0,0,0,0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .column-header.todo {
@@ -222,7 +230,7 @@ body {
 }
 
 .tasks-container::-webkit-scrollbar-thumb {
-    background: rgba(0,0,0,0.08);
+    background: rgba(0, 0, 0, 0.08);
     border-radius: 10px;
 }
 
@@ -232,7 +240,7 @@ body {
     border-radius: 8px;
     padding: 1rem;
     margin-bottom: 1rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     border-left: 3px solid transparent;
     transition: var(--hover-transition);
     cursor: grab;
@@ -240,7 +248,7 @@ body {
 
 .task-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
 }
 
 .task-card[data-priority="3"] {
@@ -377,7 +385,8 @@ body {
     z-index: 998;
 }
 
-.form-container, .modal-container {
+.form-container,
+.modal-container {
     display: none;
     position: fixed;
     top: 50%;
@@ -392,7 +401,8 @@ body {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
-.form-header, .modal-content h3 {
+.form-header,
+.modal-content h3 {
     background: var(--primary-light);
     color: white;
     padding: 1.25rem;
@@ -401,7 +411,8 @@ body {
     align-items: center;
 }
 
-.form-header h3, .modal-content h3 {
+.form-header h3,
+.modal-content h3 {
     margin: 0;
     font-weight: 500;
     font-size: 1.1rem;
@@ -442,7 +453,8 @@ form {
     color: var(--text-primary);
 }
 
-.form-group input, .form-group select {
+.form-group input,
+.form-group select {
     width: 100%;
     padding: 0.75rem 1rem;
     border: 1px solid #e2e8f0;
@@ -451,7 +463,8 @@ form {
     transition: var(--hover-transition);
 }
 
-.form-group input:focus, .form-group select:focus {
+.form-group input:focus,
+.form-group select:focus {
     border-color: var(--primary-light);
     outline: none;
     box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
@@ -478,7 +491,8 @@ form {
     transition: var(--hover-transition);
 }
 
-.submit-btn, .delete-confirm-btn {
+.submit-btn,
+.delete-confirm-btn {
     background-color: var(--primary-light);
     color: white;
     border: none;
@@ -527,6 +541,7 @@ form {
 
 /* Responsive design adjustments */
 @media (max-width: 992px) {
+
     .header-section,
     .board-detail-section {
         left: 0;
@@ -584,19 +599,23 @@ form {
 }
 
 .task-card[data-priority="3"] {
-    border-left: 4px solid #ff5555; /* Urgent - Red */
+    border-left: 4px solid #ff5555;
+    /* Urgent - Red */
 }
 
 .task-card[data-priority="2"] {
-    border-left: 4px solid #ffa500; /* High - Orange */
+    border-left: 4px solid #ffa500;
+    /* High - Orange */
 }
 
 .task-card[data-priority="1"] {
-    border-left: 4px solid #ffc800; /* Medium - Yellow */
+    border-left: 4px solid #ffc800;
+    /* Medium - Yellow */
 }
 
 .task-card[data-priority="0"] {
-    border-left: 4px solid #cccccc; /* Low - Grey */
+    border-left: 4px solid #cccccc;
+    /* Low - Grey */
 }
 
 /* Styling untuk priority dots */

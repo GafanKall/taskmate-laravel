@@ -27,8 +27,15 @@
     <!-- Main Content Area -->
     <div class="content-area">
         <header class="header-section">
-            <div class="text">Weekly Schedule</div>
-            <p>Today, {{ now()->format('l, d F Y') }}</p>
+            <div class="header-container">
+                <div class="header-left">
+                    <div class="text">Weekly Schedule</div>
+                    <p>Today, {{ now()->format('l, d F Y') }}</p>
+                </div>
+                <div class="header-right">
+                    @include('partials.notification')
+                </div>
+            </div>
         </header>
 
         <section class="schedule-section">

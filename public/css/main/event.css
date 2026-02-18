@@ -33,7 +33,15 @@ body {
     top: 0;
     left: 250px;
     width: calc(100% - 250px);
-    z-index: 2;
+    z-index: 1000;
+    padding-right: 40px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
 }
 
 .header-section .text {
@@ -41,13 +49,13 @@ body {
     color: var(--primary-color);
     font-size: 25px;
     font-weight: 500;
-    margin: 18px 18px 0 100px;
+    margin: 0 0 0 100px;
 }
 
 .header-section p {
     color: var(--light-text);
     font-size: 20px;
-    margin: 0 18px 18px 100px;
+    margin: 0 0 0 100px;
 }
 
 section {
@@ -201,7 +209,8 @@ section::-webkit-scrollbar-thumb:hover {
     margin: 0;
 }
 
-.form-time, .form-highlight {
+.form-time,
+.form-highlight {
     display: flex;
     gap: 20px;
 }
@@ -265,7 +274,7 @@ section::-webkit-scrollbar-thumb:hover {
     margin-right: 8px;
 }
 
-.form-group input[type="checkbox"] + label {
+.form-group input[type="checkbox"]+label {
     display: inline-block;
     margin-bottom: 0;
 }

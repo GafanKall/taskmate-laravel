@@ -77,5 +77,11 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/weekly-schedule/{weeklySchedule}', [WeeklyScheduleController::class, 'destroy'])->name('weekly-schedule.destroy');
     Route::put('/weekly-schedule/{weeklySchedule}', [WeeklyScheduleController::class, 'update'])
     ->name('weekly-schedule.update');
+
+    // Notifications
+    Route::post('/notifications/mark-all-read', function () {
+        \App\Models\Notification::where('user_id', auth()->id())->whereNull('read_at')->update(['read_at' => now()]);
+        return response()->json(['success' => true]);
+    });
 });
 

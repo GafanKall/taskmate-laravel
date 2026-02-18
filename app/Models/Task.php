@@ -12,17 +12,21 @@ class Task extends Model
     protected $fillable = [
         'user_id',
         'board_id',
-        'name',
+        'title',
         'priority',
         'status',
         'start_date',
         'end_date',
-        'completed'
+        'completed',
+        'last_notified_at',
+        'completed_at',
     ];
 
     protected $casts = [
         'start_date' => 'datetime',
         'end_date' => 'datetime',
+        'last_notified_at' => 'datetime',
+        'completed_at' => 'datetime',
     ];
 
     protected $dates = ['start_date', 'end_date'];

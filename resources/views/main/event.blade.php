@@ -26,8 +26,15 @@
 
 <body>
     <header class="header-section">
-        <div class="text">Event</div>
-        <p>Today, {{ now()->format('l, j F Y') }} </p>
+        <div class="header-container">
+            <div class="header-left">
+                <div class="text">Event Calendar</div>
+                <p>Today, {{ now()->translatedFormat('l, d F Y') }}</p>
+            </div>
+            <div class="header-right">
+                @include('partials.notification')
+            </div>
+        </div>
     </header>
 
     <section class="calendar-section">

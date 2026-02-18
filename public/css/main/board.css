@@ -30,7 +30,15 @@ body {
     top: 0;
     left: 250px;
     width: calc(100% - 250px);
-    z-index: 2;
+    z-index: 1000;
+    padding-right: 40px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
 }
 
 .header-section .text {
@@ -38,13 +46,13 @@ body {
     color: black;
     font-size: 25px;
     font-weight: 500;
-    margin: 18px 18px 0 100px;
+    margin: 0 0 0 100px;
 }
 
 .header-section p {
     color: var(--light-text);
     font-size: 20px;
-    margin: 0 18px 18px 100px;
+    margin: 0 0 0 100px;
 }
 
 section {
@@ -86,29 +94,6 @@ section::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
 
-.header-section {
-    position: relative;
-    background: var(--secondary-color);
-    height: 15vh;
-    top: 0;
-    left: 250px;
-    width: calc(100% - 250px);
-    z-index: 2;
-}
-
-.header-section .text {
-    display: inline-block;
-    color: black;
-    font-size: 25px;
-    font-weight: 500;
-    margin: 18px 18px 0 100px;
-}
-
-.header-section p {
-    color: var(--light-text);
-    font-size: 20px;
-    margin: 0 18px 18px 100px;
-}
 .boards-section {
     margin-top: 20px;
 }
@@ -184,7 +169,8 @@ section::-webkit-scrollbar-thumb:hover {
     gap: 10px;
 }
 
-.edit-board-btn, .delete-board-btn {
+.edit-board-btn,
+.delete-board-btn {
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -242,7 +228,8 @@ section::-webkit-scrollbar-thumb:hover {
     z-index: 999;
 }
 
-.form-container, .modal-container {
+.form-container,
+.modal-container {
     display: none;
     position: fixed;
     top: 50%;
@@ -257,7 +244,8 @@ section::-webkit-scrollbar-thumb:hover {
     max-width: 90%;
 }
 
-.form-header, .modal-content h3 {
+.form-header,
+.modal-content h3 {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -284,7 +272,8 @@ section::-webkit-scrollbar-thumb:hover {
     color: #333;
 }
 
-.form-group input, .form-group textarea {
+.form-group input,
+.form-group textarea {
     width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
@@ -297,7 +286,8 @@ section::-webkit-scrollbar-thumb:hover {
     resize: vertical;
 }
 
-.form-actions, .modal-actions {
+.form-actions,
+.modal-actions {
     display: flex;
     justify-content: flex-end;
     gap: 10px;

@@ -32,8 +32,18 @@ body {
 }
 
 .header-section {
+    position: relative;
     background: var(--secondary-color);
     padding: 20px 30px;
+    height: 120px;
+    z-index: 1000;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
 }
 
 .header-section .text {

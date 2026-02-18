@@ -33,7 +33,15 @@ body {
     top: 0;
     left: 250px;
     width: calc(100% - 250px);
-    z-index: 2;
+    z-index: 1000;
+    padding-right: 40px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
 }
 
 .header-section .text {
@@ -41,13 +49,13 @@ body {
     color: black;
     font-size: 25px;
     font-weight: 500;
-    margin: 18px 18px 0 100px;
+    margin: 0 0 0 100px;
 }
 
 .header-section p {
     color: var(--light-text);
     font-size: 20px;
-    margin: 0 18px 18px 100px;
+    margin: 0 0 0 100px;
 }
 
 /* General Layout */
@@ -244,19 +252,23 @@ body {
 }
 
 .task-item.priority-0 {
-    border-left-color: #6c757d; /* Low priority */
+    border-left-color: #6c757d;
+    /* Low priority */
 }
 
 .task-item.priority-1 {
-    border-left-color: #0d6efd; /* Medium priority */
+    border-left-color: #0d6efd;
+    /* Medium priority */
 }
 
 .task-item.priority-2 {
-    border-left-color: #ffc107; /* High priority */
+    border-left-color: #ffc107;
+    /* High priority */
 }
 
 .task-item.priority-3 {
-    border-left-color: #dc3545; /* Urgent priority */
+    border-left-color: #dc3545;
+    /* Urgent priority */
 }
 
 .task-details h4 {
@@ -471,7 +483,10 @@ body {
         grid-template-columns: 1fr;
     }
 
-    .event-item, .task-item, .note-item a, .board-item a {
+    .event-item,
+    .task-item,
+    .note-item a,
+    .board-item a {
         padding: 10px;
     }
 

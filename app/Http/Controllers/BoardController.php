@@ -21,43 +21,32 @@ class BoardController extends Controller
     /**
      * Display specific board view with tasks
      */
+    private $categoryMap = [
+        'work' => ['name' => 'Work', 'emoji' => '🛠️'],
+        'personal' => ['name' => 'Personal', 'emoji' => '👤'],
+        'education' => ['name' => 'Education', 'emoji' => '📚'],
+        'health' => ['name' => 'Health', 'emoji' => '❤️'],
+    ];
+
+    /**
+     * Display specific board view with tasks
+     */
     public function show($boardId)
     {
         $greeting = $this->getGreeting();
         $currentDateTime = Carbon::now()->format('l, j F Y');
+        $userId = Auth::id();
 
         // Get all boards for the current user
-        $boards = Board::where('user_id', Auth::id())->get();
+        $boards = Board::where('user_id', $userId)->get();
 
         // Get the current board
-        $currentBoard = Board::where('user_id', Auth::id())->findOrFail($boardId);
+        $currentBoard = Board::where('user_id', $userId)->findOrFail($boardId);
 
         // Get tasks based on status for the current board
-        $todoTasks = Task::where('user_id', Auth::id())
-            ->where('board_id', $currentBoard->id)
-            ->where('status', 'todo')
-            ->orderBy('priority', 'desc')
-            ->orderBy('created_at', 'desc')
-            ->get();
-
-        $inProgressTasks = Task::where('user_id', Auth::id())
-            ->where('board_id', $currentBoard->id)
-            ->where('status', 'in-progress')
-            ->orderBy('priority', 'desc')
-            ->orderBy('created_at', 'desc')
-            ->get();
-
-        $doneTasks = Task::where('user_id', Auth::id())
-            ->where('board_id', $currentBoard->id)
-            ->where('status', 'done')
-            ->orderBy('priority', 'desc')
-            ->orderBy('created_at', 'desc')
-            ->get();
-
-        // Add category info to tasks
-        $todoTasks = $this->addCategoryInfoToTasks($todoTasks);
-        $inProgressTasks = $this->addCategoryInfoToTasks($inProgressTasks);
-        $doneTasks = $this->addCategoryInfoToTasks($doneTasks);
+        $todoTasks = $this->getBoardTasksByStatus($currentBoard->id, 'todo');
+        $inProgressTasks = $this->getBoardTasksByStatus($currentBoard->id, 'in-progress');
+        $doneTasks = $this->getBoardTasksByStatus($currentBoard->id, 'done');
 
         return view('main.board_detail', compact(
             'greeting',
@@ -70,6 +59,18 @@ class BoardController extends Controller
         ));
     }
 
+    private function getBoardTasksByStatus($boardId, $status)
+    {
+        $tasks = Task::where('user_id', Auth::id())
+            ->where('board_id', $boardId)
+            ->where('status', $status)
+            ->orderBy('priority', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return $this->addCategoryInfoToTasks($tasks);
+    }
+
     /**
      * Store a new board
      */
@@ -80,11 +81,11 @@ class BoardController extends Controller
             'description' => 'nullable|string',
         ]);
 
-        $board = new Board();
-        $board->name = $validated['name'];
-        $board->description = $validated['description'] ?? null;
-        $board->user_id = Auth::id();
-        $board->save();
+        $board = Board::create([
+            'name' => $validated['name'],
+            'description' => $validated['description'],
+            'user_id' => Auth::id(),
+        ]);
 
         return response()->json([
             'success' => true,
@@ -105,9 +106,7 @@ class BoardController extends Controller
             'description' => 'nullable|string',
         ]);
 
-        $board->name = $validated['name'];
-        $board->description = $validated['description'] ?? $board->description;
-        $board->save();
+        $board->update($validated);
 
         return response()->json([
             'success' => true,
@@ -123,12 +122,9 @@ class BoardController extends Controller
     {
         $board = Board::where('user_id', Auth::id())->findOrFail($id);
 
-        // Either delete associated tasks or make them un-assigned
-        if ($request->has('delete_tasks') && $request->delete_tasks) {
-            // Delete all tasks in this board
+        if ($request->boolean('delete_tasks')) {
             Task::where('board_id', $board->id)->delete();
         } else {
-            // Make tasks un-assigned
             Task::where('board_id', $board->id)->update(['board_id' => null]);
         }
 
@@ -140,26 +136,15 @@ class BoardController extends Controller
     private function getGreeting()
     {
         $hour = date('H');
-        if ($hour >= 5 && $hour < 12) {
-            return 'Good Morning';
-        } elseif ($hour >= 12 && $hour < 18) {
-            return 'Good Afternoon';
-        } else {
-            return 'Good Evening';
-        }
+        if ($hour >= 5 && $hour < 12) return 'Good Morning';
+        if ($hour >= 12 && $hour < 18) return 'Good Afternoon';
+        return 'Good Evening';
     }
 
     private function addCategoryInfoToTasks($tasks)
     {
-        $categoryMap = [
-            'work' => ['name' => 'Work', 'emoji' => '🛠️'],
-            'personal' => ['name' => 'Personal', 'emoji' => '👤'],
-            'education' => ['name' => 'Education', 'emoji' => '📚'],
-            'health' => ['name' => 'Health', 'emoji' => '❤️'],
-        ];
-
         foreach ($tasks as $task) {
-            $categoryInfo = $categoryMap[$task->category] ?? ['name' => 'Other', 'emoji' => '📝'];
+            $categoryInfo = $this->categoryMap[$task->category] ?? ['name' => 'Other', 'emoji' => '📝'];
             $task->category_name = $categoryInfo['name'];
             $task->category_emoji = $categoryInfo['emoji'];
         }
