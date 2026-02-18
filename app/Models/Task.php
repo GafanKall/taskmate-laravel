@@ -31,7 +31,23 @@ class Task extends Model
 
     protected $dates = ['start_date', 'end_date'];
 
-    // Remove the appends and the category getter methods
+    public const PRIORITY_MAP = [
+        'low' => 0,
+        'medium' => 1,
+        'high' => 2,
+        'urgent' => 3,
+    ];
+
+    public function getPriorityAttribute($value)
+    {
+        $map = array_flip(self::PRIORITY_MAP);
+        return $map[$value] ?? 'medium';
+    }
+
+    public function setPriorityAttribute($value)
+    {
+        $this->attributes['priority'] = self::PRIORITY_MAP[strtolower($value)] ?? 1;
+    }
 
     public function user()
     {
